@@ -86,28 +86,30 @@ public class ConsultaUnidadeCurricularUI extends JInternalFrame {
 		jtListaUnidadeCurricular = new JTable();
 		jtListaUnidadeCurricular.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
 			},
 			new String[] {
-				"Unidade Curricular", "Curso", "Fase/Semestre"
+				"Professor", "Unidade Curricular", "Curso", "Fase/Semestre"
 			}
 		));
-		jtListaUnidadeCurricular.getColumnModel().getColumn(0).setPreferredWidth(137);
-		jtListaUnidadeCurricular.getColumnModel().getColumn(1).setPreferredWidth(149);
+		jtListaUnidadeCurricular.getColumnModel().getColumn(0).setPreferredWidth(97);
+		jtListaUnidadeCurricular.getColumnModel().getColumn(1).setPreferredWidth(137);
+		jtListaUnidadeCurricular.getColumnModel().getColumn(2).setPreferredWidth(71);
+		jtListaUnidadeCurricular.getColumnModel().getColumn(3).setPreferredWidth(108);
 		jspTabelaConsultaUnidCurricular.setViewportView(jtListaUnidadeCurricular);
 		
 		JButton btnPesquisar = new JButton("Pesquisar");

@@ -20,6 +20,8 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 	private JTextField jtfCargaHorariaCurso;
 	private JTextField jtfDataInicial;
 	private JTextField jtfDataFinal;
+	private JTextField jtfNumeroAlunos;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -43,16 +45,14 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 	public InserirUnidadeCurricularUI() {
 		setTitle("Inserir Unidade Curricular");
 		setClosable(true);
-		setBounds(100, 100, 546, 284);
+		setBounds(100, 100, 548, 350);
 		
 		JPanel jpDadosUnidCurricular = new JPanel();
 		jpDadosUnidCurricular.setBorder(new TitledBorder(null, "Dados da Unidade Curricular", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JButton btnSalvar = new JButton("Salvar");
 		
-		JButton btnExcluir = new JButton("Excluir");
-		
-		JButton btnSelecionarProfessor = new JButton("Selecionar Professor");
+		JButton btnLimpar = new JButton("Limpar");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -60,26 +60,22 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(jpDadosUnidCurricular, GroupLayout.PREFERRED_SIZE, 504, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(btnSalvar)
-							.addPreferredGap(ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
-							.addComponent(btnSelecionarProfessor)
-							.addGap(107)
-							.addComponent(btnExcluir)))
+							.addPreferredGap(ComponentPlacement.RELATED, 370, Short.MAX_VALUE)
+							.addComponent(btnLimpar)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(jpDadosUnidCurricular, GroupLayout.PREFERRED_SIZE, 194, GroupLayout.PREFERRED_SIZE)
+					.addComponent(jpDadosUnidCurricular, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnSalvar)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnExcluir)
-							.addComponent(btnSelecionarProfessor)))
-					.addContainerGap(30, Short.MAX_VALUE))
+						.addComponent(btnLimpar)
+						.addComponent(btnSalvar))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
 		JLabel lblUnidadeCurricular = new JLabel("Unidade Curricular: ");
@@ -111,33 +107,58 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 		
 		jtfDataFinal = new JTextField();
 		jtfDataFinal.setColumns(10);
+		
+		JLabel lblNumeroAlunos = new JLabel("Numero de alunos: ");
+		
+		jtfNumeroAlunos = new JTextField();
+		jtfNumeroAlunos.setColumns(10);
+		
+		JLabel lblEquipamentos = new JLabel("Equipamentos: ");
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		
+		JButton btnSelecionarProfessor = new JButton("Selecionar Professor");
 		GroupLayout gl_jpDadosUnidCurricular = new GroupLayout(jpDadosUnidCurricular);
 		gl_jpDadosUnidCurricular.setHorizontalGroup(
 			gl_jpDadosUnidCurricular.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_jpDadosUnidCurricular.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblUnidadeCurricular)
-						.addComponent(lblCurso)
+					.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_jpDadosUnidCurricular.createSequentialGroup()
-							.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(jcbFaseSemestre, Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblFaseSemestre, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addGap(18)
-							.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(jtfCargaHorariaCurso, 0, 0, Short.MAX_VALUE)
-								.addComponent(lblCargaHoraria, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addGap(18)
+							.addContainerGap()
 							.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.LEADING)
-								.addComponent(jtfDataInicial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblDataInicial))
-							.addGap(18)
-							.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.LEADING)
-								.addComponent(jtfDataFinal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblDataFinal)))
-						.addComponent(jtfUnidadeCurricular)
-						.addComponent(jtfCurso))
-					.addContainerGap(161, Short.MAX_VALUE))
+								.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(lblUnidadeCurricular)
+									.addComponent(lblCurso)
+									.addGroup(gl_jpDadosUnidCurricular.createSequentialGroup()
+										.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.TRAILING, false)
+											.addComponent(jcbFaseSemestre, Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(lblFaseSemestre, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+										.addGap(18)
+										.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.LEADING, false)
+											.addComponent(jtfCargaHorariaCurso, 0, 0, Short.MAX_VALUE)
+											.addComponent(lblCargaHoraria, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+										.addGap(18)
+										.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.LEADING)
+											.addComponent(jtfDataInicial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addComponent(lblDataInicial))
+										.addGap(18)
+										.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.LEADING)
+											.addComponent(jtfDataFinal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addComponent(lblDataFinal)))
+									.addComponent(jtfUnidadeCurricular)
+									.addComponent(jtfCurso)
+									.addComponent(textField, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_jpDadosUnidCurricular.createSequentialGroup()
+									.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(jtfNumeroAlunos, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+										.addComponent(lblNumeroAlunos, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+									.addGap(18)
+									.addComponent(lblEquipamentos))))
+						.addGroup(gl_jpDadosUnidCurricular.createSequentialGroup()
+							.addGap(166)
+							.addComponent(btnSelecionarProfessor)))
+					.addContainerGap(18, Short.MAX_VALUE))
 		);
 		gl_jpDadosUnidCurricular.setVerticalGroup(
 			gl_jpDadosUnidCurricular.createParallelGroup(Alignment.LEADING)
@@ -161,11 +182,20 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 						.addComponent(jtfCargaHorariaCurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jtfDataInicial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jtfDataFinal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(60, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNumeroAlunos)
+						.addComponent(lblEquipamentos))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jtfNumeroAlunos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnSelecionarProfessor)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		jpDadosUnidCurricular.setLayout(gl_jpDadosUnidCurricular);
 		getContentPane().setLayout(groupLayout);
 
 	}
-
 }
