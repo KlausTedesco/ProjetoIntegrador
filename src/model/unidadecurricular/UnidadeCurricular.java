@@ -16,6 +16,9 @@ public class UnidadeCurricular {
 		this.dataFinal = dataFinal;
 		this.dataInicio = dataInicio;
 	}
+	
+	public UnidadeCurricular (){
+	}
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
