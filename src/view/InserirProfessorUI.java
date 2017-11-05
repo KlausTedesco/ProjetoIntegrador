@@ -16,6 +16,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class InserirProfessorUI extends JInternalFrame {
 	private JTextField jtfNome;
@@ -51,7 +53,11 @@ public class InserirProfessorUI extends JInternalFrame {
 		
 		JButton btnSalvar = new JButton("Salvar");
 		
-		JButton btnExcluir = new JButton("Excluir");
+		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -62,7 +68,7 @@ public class InserirProfessorUI extends JInternalFrame {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnSalvar)
 							.addPreferredGap(ComponentPlacement.RELATED, 569, Short.MAX_VALUE)
-							.addComponent(btnExcluir)))
+							.addComponent(btnLimpar)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -73,7 +79,7 @@ public class InserirProfessorUI extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnSalvar)
-						.addComponent(btnExcluir))
+						.addComponent(btnLimpar))
 					.addContainerGap(78, Short.MAX_VALUE))
 		);
 		
