@@ -11,6 +11,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PrincipalUI extends JFrame {
 
@@ -47,15 +49,37 @@ public class PrincipalUI extends JFrame {
 		menuBar.add(mnProfessores);
 		
 		JMenuItem mntmInserirProfessor = new JMenuItem("Inserir Professor");
+		mntmInserirProfessor.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				InserirProfessorUI inserirProfessorUI = new InserirProfessorUI();
+				contentPane.add(inserirProfessorUI, 0);
+				inserirProfessorUI.setVisible(true);
+			}
+		});
 		mnProfessores.add(mntmInserirProfessor);
 		
 		JMenuItem mntmConsultaProfessor = new JMenuItem("Consulta Professor");
+		mntmConsultaProfessor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultaProfessorUI consultaProfessorUI = new ConsultaProfessorUI();
+				contentPane.add(consultaProfessorUI,0);
+				consultaProfessorUI.setVisible(true);				
+			}
+		});
 		mnProfessores.add(mntmConsultaProfessor);
 		
 		JMenu mnUnidadeCurricular = new JMenu("Unidade Curricular");
 		menuBar.add(mnUnidadeCurricular);
 		
 		JMenuItem mntmInserirUnidCurricular = new JMenuItem("Inserir Unid. Curricular");
+		mntmInserirUnidCurricular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				InserirUnidadeCurricularUI inserirUnidadeCurricularUI = new InserirUnidadeCurricularUI();
+				contentPane.add(inserirUnidadeCurricularUI,0);
+				inserirUnidadeCurricularUI.setVisible(true);
+			}
+		});
 		mnUnidadeCurricular.add(mntmInserirUnidCurricular);
 		
 		JMenuItem mntmConsultaUnidCurricular = new JMenuItem("Consulta Unid. Curricular");
