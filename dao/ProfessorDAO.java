@@ -14,7 +14,7 @@ import dao.ConnectionUtil;
 public class ProfessorDAO {
 
 	private static ProfessorDAO instancia;
-	public ArrayList<Professor> listaProfessores = new ArrayList<>();
+	public ArrayList<Professor> listaProfessores;
 	private Connection con = ConnectionUtil.getConnection();
 
 	//Singleton
@@ -42,6 +42,7 @@ public class ProfessorDAO {
 	}
 
 	public List<Professor> listarTodos(){
+		listaProfessores = new ArrayList<>();
 		try {
 			Statement stmt = con.createStatement();
 			String sql = "select * from professor";

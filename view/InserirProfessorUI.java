@@ -7,10 +7,18 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+
+import controller.ClienteController;
+import controller.ProfessorController;
+import model.Cliente;
+import model.Professor;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.Choice;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -23,6 +31,7 @@ public class InserirProfessorUI extends JInternalFrame {
 	private JTextField jtfNome;
 	private JTextField jtfMatricula;
 	private JTextField jtfFormacao;
+	private Professor professorParaEdicao;
 
 	/**
 	 * Launch the application.
@@ -52,6 +61,31 @@ public class InserirProfessorUI extends JInternalFrame {
 		jpDadosProfessor.setBorder(new TitledBorder(null, "Dados Professor", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (professorParaEdicao == null){
+					Professor professor = new Professor();
+					professor.setNome(jtfNome.getText());
+					professor.setMatricula(jtfCpf.getText());
+					professor.setTelefone(jtfTelefone.getText());
+					professor.setEndereco(jtfEndereco.getText());
+					
+					new ProfessorController().salvar(professor);
+					
+					JOptionPane.showMessageDialog(null, "Professor Cadastrado com sucesso");
+				}else{
+					professorParaEdicao.setNome(jtfNome.getText());
+					professorParaEdicao.setCpf(jtfCpf.getText());
+					professorParaEdicao.setTelefone(jtfTelefone.getText());
+					professorParaEdicao.setEndereco(jtfEndereco.getText());
+					
+					new ProfessorController().editar(professorParaEdicao);
+
+					JOptionPane.showMessageDialog(null, "Professor Editado com sucesso");
+				}
+				dispose();
+			}
+		});
 		
 		JButton btnLimpar = new JButton("Limpar");
 		btnLimpar.addActionListener(new ActionListener() {

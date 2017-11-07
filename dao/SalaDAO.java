@@ -14,7 +14,7 @@ import dao.ConnectionUtil;
 public class SalaDAO {
 
 	private static SalaDAO instancia;
-	public ArrayList<Sala> listaSalas = new ArrayList<>();
+	public ArrayList<Sala> listaSalas;
 	private Connection con = ConnectionUtil.getConnection();
 
 	//Singleton
@@ -42,6 +42,7 @@ public class SalaDAO {
 	}
 
 	public List<Sala> listarTodos(){
+		listaSalas = new ArrayList<>();
 		try {
 			Statement stmt = con.createStatement();
 			String sql = "select * from sala";

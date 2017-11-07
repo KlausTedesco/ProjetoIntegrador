@@ -1,6 +1,7 @@
 package model;
 
-import java.time.LocalDate;
+//import java.time.LocalDate;
+import java.sql.Date;
 
 public class UnidadeCurricular {
 	
@@ -12,8 +13,8 @@ public class UnidadeCurricular {
 	private String equipamentos;
 	private Professor professor;
 	private Double cargaHorariaMateria;
-	private LocalDate dataInicio;
-	private LocalDate dataFinal;
+	private Date dataInicio;
+	private Date dataFinal;
 	
 	public UnidadeCurricular() {
 	}
@@ -89,19 +90,19 @@ public class UnidadeCurricular {
 		this.cargaHorariaMateria = cargaHorariaMateria;
 	}
 
-	public LocalDate getDataInicio() {
+	public Date getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(LocalDate dataInicio) {
+	public void setDataInicio(Date dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public LocalDate getDataFinal() {
+	public Date getDataFinal() {
 		return dataFinal;
 	}
 
-	public void setDataFinal(LocalDate dataFinal) {
+	public void setDataFinal(Date dataFinal) {
 		this.dataFinal = dataFinal;
 	}
 

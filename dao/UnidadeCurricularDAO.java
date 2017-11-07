@@ -14,7 +14,7 @@ import dao.ConnectionUtil;
 public class UnidadeCurricularDAO {
 
 	private static UnidadeCurricularDAO instancia;
-	public ArrayList<UnidadeCurricular> listaUnidadeCurriculares = new ArrayList<>();
+	public ArrayList<UnidadeCurricular> listaUnidadeCurriculares;
 	private Connection con = ConnectionUtil.getConnection();
 
 	//Singleton
@@ -48,6 +48,7 @@ public class UnidadeCurricularDAO {
 	}
 
 	public List<UnidadeCurricular> listarTodos(){
+		listaUnidadeCurriculares = new ArrayList<>();
 		try {
 			Statement stmt = con.createStatement();
 			String sql = "select * from unidadeCurricular";
@@ -90,7 +91,7 @@ public class UnidadeCurricularDAO {
 			pstmt.setString(6, unidadeCurricular.getProfessor().getNome());
 			pstmt.setDouble(7, unidadeCurricular.getCargaHorariaMateria());
 			pstmt.setDate(8, unidadeCurricular.getDataInicio());
-			pstmt.setTime(9, unidadeCurricular.getDataFinal());
+			pstmt.setDate(9, unidadeCurricular.getDataFinal());
 
 			pstmt.execute();
 		} catch (SQLException e){
