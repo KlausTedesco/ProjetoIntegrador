@@ -6,7 +6,8 @@ public class Professor {
 	private String nome;
 	private String matricula;
 	private Double cargaHorariaContratada;
-	private DiaSemana diaSemana;
+	private String formacao;
+	private ArrayList<DiaSemana> ListaDiaSemana;
 	private Horario horario;
 
 	public Professor() {
@@ -64,6 +65,14 @@ public class Professor {
 
 	public void setHorario(Horario horario) {
 		this.horario = horario;
+	}
+
+	public String getFormacao() {
+		return formacao;
+	}
+
+	public void setFormacao(String formacao) {
+		this.formacao = formacao;
 	}
 
 	@Override

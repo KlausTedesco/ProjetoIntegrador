@@ -59,6 +59,9 @@ public class InserirProfessorUI extends JInternalFrame {
 		
 		JPanel jpDadosProfessor = new JPanel();
 		jpDadosProfessor.setBorder(new TitledBorder(null, "Dados Professor", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+
+		JComboBox jcbCargaHorariaMensal = new JComboBox();
+		jcbCargaHorariaMensal.setModel(new DefaultComboBoxModel(new String[] {"10", "20", "30", "40", "50", "60"}));
 		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
@@ -66,18 +69,20 @@ public class InserirProfessorUI extends JInternalFrame {
 				if (professorParaEdicao == null){
 					Professor professor = new Professor();
 					professor.setNome(jtfNome.getText());
-					professor.setMatricula(jtfCpf.getText());
-					professor.setTelefone(jtfTelefone.getText());
-					professor.setEndereco(jtfEndereco.getText());
+					professor.setMatricula(jtfMatricula.getText());
+					professor.setCargaHorariaContratada(Double.parseDouble(jcbCargaHorariaMensal.getSelectedItem().toString()));
+					professor.setFormacao(jtfFormacao.getText());
+					//professor.setDiaSemana(.getText());
+					professor.setFormacao(jtfFormacao.getText());
 					
 					new ProfessorController().salvar(professor);
 					
 					JOptionPane.showMessageDialog(null, "Professor Cadastrado com sucesso");
 				}else{
 					professorParaEdicao.setNome(jtfNome.getText());
-					professorParaEdicao.setCpf(jtfCpf.getText());
-					professorParaEdicao.setTelefone(jtfTelefone.getText());
-					professorParaEdicao.setEndereco(jtfEndereco.getText());
+					//professorParaEdicao.setCpf(jtfCpf.getText());
+					//professorParaEdicao.setTelefone(jtfTelefone.getText());
+					//professorParaEdicao.setEndereco(jtfEndereco.getText());
 					
 					new ProfessorController().editar(professorParaEdicao);
 
@@ -134,8 +139,6 @@ public class InserirProfessorUI extends JInternalFrame {
 		jtfFormacao = new JTextField();
 		jtfFormacao.setColumns(10);
 		
-		JComboBox jcbCargaHorariaMensal = new JComboBox();
-		jcbCargaHorariaMensal.setModel(new DefaultComboBoxModel(new String[] {"10", "20", "30", "40", "50", "60"}));
 		
 		JLabel lblDiasDaSemana = new JLabel("Dia(s) da semana:");
 		
