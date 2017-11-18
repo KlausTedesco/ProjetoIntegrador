@@ -11,6 +11,7 @@ import javax.swing.border.TitledBorder;
 import controller.ClienteController;
 import controller.ProfessorController;
 import model.Cliente;
+import static model.Horario.*;
 import model.Professor;
 
 import javax.swing.JLabel;
@@ -20,12 +21,16 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import java.awt.Choice;
+import java.awt.Component;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTabbedPane;
+import java.awt.GridLayout;
 
 public class InserirProfessorUI extends JInternalFrame {
 	private JTextField jtfNome;
@@ -142,61 +147,36 @@ public class InserirProfessorUI extends JInternalFrame {
 		
 		JLabel lblDiasDaSemana = new JLabel("Dia(s) da semana:");
 		
-		JCheckBox chckbxSegundafeira = new JCheckBox("Segunda-feira");
-		
-		JCheckBox chckbxTercafeira = new JCheckBox("Ter\u00E7a-feira");
-		
-		JCheckBox chckbxQuartafeira = new JCheckBox("Quarta-feira");
-		
-		JCheckBox chckbxQuintafeira = new JCheckBox("Quinta-feira");
-		
-		JCheckBox chckbxSextafeira = new JCheckBox("Sexta-feira");
-		
-		JCheckBox chckbxSabdo = new JCheckBox("Sab\u00E1do");
-		
-		JCheckBox chckbxDomingo = new JCheckBox("Domingo");
-		
-		JPanel jpHorarios = new JPanel();
-		jpHorarios.setBorder(new TitledBorder(null, "Horarios", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout gl_jpDadosProfessor = new GroupLayout(jpDadosProfessor);
 		gl_jpDadosProfessor.setHorizontalGroup(
 			gl_jpDadosProfessor.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_jpDadosProfessor.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_jpDadosProfessor.createParallelGroup(Alignment.LEADING)
-						.addComponent(jtfNome, GroupLayout.DEFAULT_SIZE, 671, Short.MAX_VALUE)
 						.addGroup(gl_jpDadosProfessor.createSequentialGroup()
-							.addComponent(chckbxSegundafeira)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxTercafeira)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxQuartafeira)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxQuintafeira)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxSextafeira)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxSabdo)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxDomingo))
-						.addComponent(lblNome)
+							.addGap(10)
+							.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE))
 						.addGroup(gl_jpDadosProfessor.createSequentialGroup()
 							.addGroup(gl_jpDadosProfessor.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblMatricula)
-								.addComponent(jtfMatricula, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_jpDadosProfessor.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(jcbCargaHorariaMensal, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblCargaHoraria, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addGap(18)
-							.addGroup(gl_jpDadosProfessor.createParallelGroup(Alignment.LEADING)
+								.addComponent(jtfNome, GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+								.addComponent(lblNome)
 								.addGroup(gl_jpDadosProfessor.createSequentialGroup()
-									.addComponent(lblFormacao)
-									.addGap(54))
-								.addComponent(jtfFormacao, GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)))
-						.addComponent(lblDiasDaSemana)
-						.addComponent(jpHorarios, GroupLayout.PREFERRED_SIZE, 670, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
+									.addGroup(gl_jpDadosProfessor.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblMatricula)
+										.addComponent(jtfMatricula, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(18)
+									.addGroup(gl_jpDadosProfessor.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(jcbCargaHorariaMensal, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(lblCargaHoraria, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+									.addGap(18)
+									.addGroup(gl_jpDadosProfessor.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_jpDadosProfessor.createSequentialGroup()
+											.addComponent(lblFormacao)
+											.addGap(54))
+										.addComponent(jtfFormacao, GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)))
+								.addComponent(lblDiasDaSemana))
+							.addContainerGap())))
 		);
 		gl_jpDadosProfessor.setVerticalGroup(
 			gl_jpDadosProfessor.createParallelGroup(Alignment.LEADING)
@@ -218,100 +198,76 @@ public class InserirProfessorUI extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblDiasDaSemana)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_jpDadosProfessor.createParallelGroup(Alignment.BASELINE)
-						.addComponent(chckbxSegundafeira)
-						.addComponent(chckbxTercafeira)
-						.addComponent(chckbxQuartafeira)
-						.addComponent(chckbxQuintafeira)
-						.addComponent(chckbxSextafeira)
-						.addComponent(chckbxSabdo)
-						.addComponent(chckbxDomingo))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(jpHorarios, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
 		);
 		
-		JCheckBox chckbxAula1 = new JCheckBox("Aula 1 - 08:00 as 08:55");
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("New tab", null, panel, null);
+		this.setTabCheckBoxs(panel);
 		
-		JCheckBox chckbxAula2 = new JCheckBox("Aula 2 - 08:55 as 09:45");
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("New tab", null, panel_1, null);
+		this.setTabCheckBoxs(panel_1);
 		
-		JCheckBox chckbxAula3 = new JCheckBox("Aula 3 - 09:45 as 10:40");
+		JPanel panel_2 = new JPanel();
+		tabbedPane.addTab("New tab", null, panel_2, null);
+		this.setTabCheckBoxs(panel_2);
 		
-		JCheckBox chckbxAula4 = new JCheckBox("Aula 4 - 10:40 as 11:30");
+		JPanel panel_3 = new JPanel();
+		tabbedPane.addTab("New tab", null, panel_3, null);
+		this.setTabCheckBoxs(panel_3);
 		
-		JCheckBox chckbxAula5 = new JCheckBox("Aula 5 - 13:00 as 13:55");
+		JPanel panel_4 = new JPanel();
+		tabbedPane.addTab("New tab", null, panel_4, null);
+		this.setTabCheckBoxs(panel_4);
 		
-		JCheckBox chckbxAula6 = new JCheckBox("Aula 6 - 13:55 as 14:45");
+		JPanel panel_5 = new JPanel();
+		tabbedPane.addTab("New tab", null, panel_5, null);
+		this.setTabCheckBoxs(panel_5);
 		
-		JCheckBox chckbxAula7 = new JCheckBox("Aula 7 - 14:45 as 15:40");
-		
-		JCheckBox chckbxAula8 = new JCheckBox("Aula 8 - 15:40 as 16:30");
-		
-		JCheckBox chckbxAula9 = new JCheckBox("Aula 9 - 19:00 as 19:55");
-		
-		JCheckBox chckbxAula10 = new JCheckBox("Aula 10 - 19:55 as 20:45");
-		
-		JCheckBox chckbxAula11 = new JCheckBox("Aula 11 - 20:45 as 21:30");
-		
-		JCheckBox chckbxAula12 = new JCheckBox("Aula 12 - 21:30 as 22:30");
-		GroupLayout gl_jpHorarios = new GroupLayout(jpHorarios);
-		gl_jpHorarios.setHorizontalGroup(
-			gl_jpHorarios.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_jpHorarios.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_jpHorarios.createParallelGroup(Alignment.LEADING)
-						.addComponent(chckbxAula1)
-						.addComponent(chckbxAula2)
-						.addComponent(chckbxAula3)
-						.addComponent(chckbxAula4))
-					.addPreferredGap(ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-					.addGroup(gl_jpHorarios.createParallelGroup(Alignment.LEADING)
-						.addComponent(chckbxAula5)
-						.addComponent(chckbxAula6)
-						.addComponent(chckbxAula7)
-						.addComponent(chckbxAula8))
-					.addGap(69)
-					.addGroup(gl_jpHorarios.createParallelGroup(Alignment.LEADING)
-						.addComponent(chckbxAula9)
-						.addComponent(chckbxAula10)
-						.addComponent(chckbxAula11)
-						.addComponent(chckbxAula12))
-					.addContainerGap())
-		);
-		gl_jpHorarios.setVerticalGroup(
-			gl_jpHorarios.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_jpHorarios.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_jpHorarios.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_jpHorarios.createSequentialGroup()
-							.addComponent(chckbxAula5)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxAula6)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxAula7)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxAula8))
-						.addGroup(gl_jpHorarios.createSequentialGroup()
-							.addComponent(chckbxAula9)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxAula10)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxAula11)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxAula12))
-						.addGroup(gl_jpHorarios.createSequentialGroup()
-							.addComponent(chckbxAula1)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxAula2)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxAula3)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(chckbxAula4)))
-					.addContainerGap(16, Short.MAX_VALUE))
-		);
-		jpHorarios.setLayout(gl_jpHorarios);
 		jpDadosProfessor.setLayout(gl_jpDadosProfessor);
 		getContentPane().setLayout(groupLayout);
 
+	}
+	
+	private void setTabCheckBoxs(JPanel panel) {
+		panel.setLayout(new GridLayout(4, 3, 0, 0));
+		
+		JCheckBox chckbxNewCheckBox_4 = new JCheckBox(AULA1.getNome());
+		panel.add(chckbxNewCheckBox_4);
+		
+		JCheckBox chckbxNewCheckBox_1 = new JCheckBox(AULA2.getNome());
+		panel.add(chckbxNewCheckBox_1);
+		
+		JCheckBox chckbxNewCheckBox_8 = new JCheckBox(AULA3.getNome());
+		panel.add(chckbxNewCheckBox_8);
+		
+		JCheckBox chckbxNewCheckBox_2 = new JCheckBox(AULA4.getNome());
+		panel.add(chckbxNewCheckBox_2);
+		
+		JCheckBox chckbxNewCheckBox_3 = new JCheckBox(AULA5.getNome());
+		panel.add(chckbxNewCheckBox_3);
+		
+		JCheckBox chckbxNewCheckBox_6 = new JCheckBox(AULA6.getNome());
+		panel.add(chckbxNewCheckBox_6);
+		
+		JCheckBox chckbxNewCheckBox_9 = new JCheckBox(AULA7.getNome());
+		panel.add(chckbxNewCheckBox_9);
+		
+		JCheckBox chckbxNewCheckBox_5 = new JCheckBox(AULA8.getNome());
+		panel.add(chckbxNewCheckBox_5);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox(AULA9.getNome());
+		panel.add(chckbxNewCheckBox);
+		
+		JCheckBox chckbxNewCheckBox_7 = new JCheckBox(AULA10.getNome());
+		panel.add(chckbxNewCheckBox_7);
+		
+		JCheckBox chckbxNewCheckBox_10 = new JCheckBox(AULA11.getNome());
+		panel.add(chckbxNewCheckBox_10);
+		
+		JCheckBox chckbxNewCheckBox_11 = new JCheckBox(AULA12.getNome());
+		panel.add(chckbxNewCheckBox_11);
+		
 	}
 }
