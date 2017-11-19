@@ -202,27 +202,27 @@ public class InserirProfessorUI extends JInternalFrame {
 		);
 		
 		JPanel panel = new JPanel();
-		tabbedPane.addTab("New tab", null, panel, null);
+		tabbedPane.addTab("Segunda-feira", null, panel, null);
 		this.setTabCheckBoxs(panel);
 		
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_1, null);
+		tabbedPane.addTab("Terça-feira", null, panel_1, null);
 		this.setTabCheckBoxs(panel_1);
 		
 		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_2, null);
+		tabbedPane.addTab("Quarta-feira", null, panel_2, null);
 		this.setTabCheckBoxs(panel_2);
 		
 		JPanel panel_3 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_3, null);
+		tabbedPane.addTab("Quinta-feira", null, panel_3, null);
 		this.setTabCheckBoxs(panel_3);
 		
 		JPanel panel_4 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_4, null);
+		tabbedPane.addTab("Sexta-feira", null, panel_4, null);
 		this.setTabCheckBoxs(panel_4);
 		
 		JPanel panel_5 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_5, null);
+		tabbedPane.addTab("Sábado", null, panel_5, null);
 		this.setTabCheckBoxs(panel_5);
 		
 		jpDadosProfessor.setLayout(gl_jpDadosProfessor);
