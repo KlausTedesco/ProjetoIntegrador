@@ -1,7 +1,6 @@
 package model;
 
-//import java.time.LocalDate;
-import java.sql.Date;
+import java.util.Date;
 
 public class UnidadeCurricular {
 	
@@ -12,7 +11,7 @@ public class UnidadeCurricular {
 	private int nAlunos;
 	private String equipamentos;
 	private Professor professor;
-	private Double cargaHorariaMateria;
+	private int cargaHorariaMateria;
 	private Date dataInicio;
 	private Date dataFinal;
 	
@@ -82,11 +81,11 @@ public class UnidadeCurricular {
 		this.professor = professor;
 	}
 
-	public Double getCargaHorariaMateria() {
+	public int getCargaHorariaMateria() {
 		return cargaHorariaMateria;
 	}
 
-	public void setCargaHorariaMateria(Double cargaHorariaMateria) {
+	public void setCargaHorariaMateria(int cargaHorariaMateria) {
 		this.cargaHorariaMateria = cargaHorariaMateria;
 	}
 

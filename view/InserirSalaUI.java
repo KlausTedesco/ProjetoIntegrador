@@ -184,29 +184,29 @@ public class InserirSalaUI extends JInternalFrame {
 		panel.setLayout(gl_panel);
 		getContentPane().setLayout(groupLayout);
 
-	}
-	public Sala getSalaParaEdicao() {
-		return salaParaEdicao;
-	}
-
-	public void setSalaParaEdicao(Sala salaParaEdicao) {
-		this.salaParaEdicao = salaParaEdicao;
-		preencherCamposParaEdicao();
-	}
-	
-	public int getPosicaoParaEdicao() {
-		return posicaoParaEdicao;
-	}
-
-	public void setPosicaoParaEdicao(int posicaoParaEdicao) {
-		this.posicaoParaEdicao = posicaoParaEdicao;
-	}
-
-	public void preencherCamposParaEdicao(){
-		if (salaParaEdicao != null){
-			jtfCodigoSala.setText(salaParaEdicao.getCodigo());
-			jtfCapacidadeAluno.setText(salaParaEdicao.getnMaximoAlunos()+"");
-			jtfEquipamentoSala.setText(salaParaEdicao.getEquipamentos());
 		}
-	}
+		public Sala getSalaParaEdicao() {
+			return salaParaEdicao;
+		}
+	
+		public void setSalaParaEdicao(Sala salaParaEdicao) {
+			this.salaParaEdicao = salaParaEdicao;
+			preencherCamposParaEdicao();
+		}
+		
+		public int getPosicaoParaEdicao() {
+			return posicaoParaEdicao;
+		}
+	
+		public void setPosicaoParaEdicao(int posicaoParaEdicao) {
+			this.posicaoParaEdicao = posicaoParaEdicao;
+		}
+	
+		public void preencherCamposParaEdicao(){
+			if (salaParaEdicao != null){
+				jtfCodigoSala.setText(salaParaEdicao.getCodigo());
+				jtfCapacidadeAluno.setText(salaParaEdicao.getnMaximoAlunos()+"");
+				jtfEquipamentoSala.setText(salaParaEdicao.getEquipamentos());
+			}
+		}
 }

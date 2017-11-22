@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,8 +38,8 @@ public class UnidadeCurricularDAO {
 			pstmt.setString(5, unidadeCurricular.getEquipamentos());
 			pstmt.setString(6, unidadeCurricular.getProfessor().getNome());
 			pstmt.setDouble(7, unidadeCurricular.getCargaHorariaMateria());
-			pstmt.setDate(8, unidadeCurricular.getDataInicio());
-			pstmt.setDate(9, unidadeCurricular.getDataFinal());
+			pstmt.setDate(8, new Date(unidadeCurricular.getDataInicio().getTime()));
+			pstmt.setDate(9, new Date(unidadeCurricular.getDataFinal().getTime()));
 
 			pstmt.execute();
 		} catch (SQLException e){
@@ -62,7 +63,7 @@ public class UnidadeCurricularDAO {
 				unidadeCurricular.setnAlunos(rs.getInt("nAlunos"));
 				unidadeCurricular.setEquipamentos(rs.getString("equipamentos"));
 				unidadeCurricular.getProfessor().setNome(rs.getString("professor"));
-				unidadeCurricular.setCargaHorariaMateria(rs.getDouble("cargaHorariaMateria"));
+				unidadeCurricular.setCargaHorariaMateria(rs.getInt("cargaHorariaMateria"));
 				unidadeCurricular.setDataInicio(rs.getDate("dataInicio"));
 				unidadeCurricular.setDataFinal(rs.getDate("dataFinal"));
 
@@ -89,8 +90,8 @@ public class UnidadeCurricularDAO {
 			pstmt.setString(5, unidadeCurricular.getEquipamentos());
 			pstmt.setString(6, unidadeCurricular.getProfessor().getNome());
 			pstmt.setDouble(7, unidadeCurricular.getCargaHorariaMateria());
-			pstmt.setDate(8, unidadeCurricular.getDataInicio());
-			pstmt.setDate(9, unidadeCurricular.getDataFinal());
+			pstmt.setDate(8, new Date(unidadeCurricular.getDataInicio().getTime()));
+			pstmt.setDate(9, new Date(unidadeCurricular.getDataFinal().getTime()));
 			pstmt.setInt(10, unidadeCurricular.getIdUnidadeCurricular());
 
 			pstmt.execute();
@@ -127,7 +128,7 @@ public class UnidadeCurricularDAO {
 				unidadeCurricular.setnAlunos(rs.getInt("nAlunos"));
 				unidadeCurricular.setEquipamentos(rs.getString("equipamentos"));
 				unidadeCurricular.getProfessor().setNome(rs.getString("professor"));
-				unidadeCurricular.setCargaHorariaMateria(rs.getDouble("cargaHorariaMateria"));
+				unidadeCurricular.setCargaHorariaMateria(rs.getInt("cargaHorariaMateria"));
 				unidadeCurricular.setDataInicio(rs.getDate("dataInicio"));
 				unidadeCurricular.setDataFinal(rs.getDate("dataFinal"));
 
