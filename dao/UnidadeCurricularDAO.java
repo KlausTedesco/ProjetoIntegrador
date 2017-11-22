@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import model.UnidadeCurricular;
 import dao.ConnectionUtil;
 
@@ -27,9 +26,9 @@ public class UnidadeCurricularDAO {
 
 	public void salvar(UnidadeCurricular unidadeCurricular){
 		try {
-			String sql = "insert into unidadeCurricular (codigoUnidade, nomeCurso, faseCurso, nAlunos,"
+			String sql = "INSERT INTO unidadeCurricular (codigoUnidade, nomeCurso, faseCurso, nAlunos,"
 					+ "equipamentos, professor, cargaHorariaMateria, dataInicio, dataFinal) "
-					+ "values (?,?,?,?,?,?,?,?,?)";
+					+ "VALUES (?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, unidadeCurricular.getCodigoUnidade());
 			pstmt.setString(2, unidadeCurricular.getNomeCurso());
@@ -51,7 +50,7 @@ public class UnidadeCurricularDAO {
 		listaUnidadeCurriculares = new ArrayList<>();
 		try {
 			Statement stmt = con.createStatement();
-			String sql = "select * from unidadeCurricular";
+			String sql = "SELECT * FROM unidadeCurricular";
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while(rs.next()){
@@ -79,9 +78,9 @@ public class UnidadeCurricularDAO {
 
 	public void editar(UnidadeCurricular unidadeCurricular){
 		try {
-			String sql = "update unidadeCurricular set codigoUnidade = ?, "
-					+ "nomeCurso = ?, faseCurso = ?, nAlunos = ?, equipamentos = ?, professor = ?, cargaHorariaMateria = ?"
-					+ "dataInicio = ?, dataFinal = ? where id = ?";
+			String sql = "UPDATE unidadeCurricular SET codigoUnidade = ?, "
+					+ "nomeCurso = ?, faseCurso = ?, nAlunos = ?, equipamentos = ?, idProfessor = ?, cargaHorariaMateria = ?"
+					+ "dataInicio = ?, dataFinal = ? WHERE idUnidadeCurricular = ?";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, unidadeCurricular.getCodigoUnidade());
 			pstmt.setString(2, unidadeCurricular.getNomeCurso());
@@ -92,6 +91,7 @@ public class UnidadeCurricularDAO {
 			pstmt.setDouble(7, unidadeCurricular.getCargaHorariaMateria());
 			pstmt.setDate(8, unidadeCurricular.getDataInicio());
 			pstmt.setDate(9, unidadeCurricular.getDataFinal());
+			pstmt.setInt(10, unidadeCurricular.getIdUnidadeCurricular());
 
 			pstmt.execute();
 		} catch (SQLException e){
@@ -101,7 +101,7 @@ public class UnidadeCurricularDAO {
 
 	public void excluir(int id){
 		try {
-			String sql = "delete from unidadeCurricular where id = ?";
+			String sql = "DELETE FROM unidadeCurricular WHERE idUnidadeCurricular = ?";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, id);
 
@@ -109,6 +109,34 @@ public class UnidadeCurricularDAO {
 		} catch (SQLException e){
 			e.printStackTrace();
 		}
+	}
+	
+	public List<UnidadeCurricular> pesquisarUnidadeCurricular(String codigoUnidade){
+		try{
+			String sql = "SELECT * FROM unidadeCurricular WHERE codigoUnidade LIKE ?";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + codigoUnidade + "%");
+			ResultSet rs = pstmt.executeQuery();
+			listaUnidadeCurriculares = new ArrayList<>();
+			while(rs.next()){
+				UnidadeCurricular unidadeCurricular = new UnidadeCurricular();
+				unidadeCurricular.setIdUnidadeCurricular(rs.getInt("idUnidadeCurricular"));
+				unidadeCurricular.setCodigoUnidade(rs.getString("codigoUnidade"));
+				unidadeCurricular.setNomeCurso(rs.getString("nomeCurso"));
+				unidadeCurricular.setFaseCurso(rs.getInt("faseCurso"));
+				unidadeCurricular.setnAlunos(rs.getInt("nAlunos"));
+				unidadeCurricular.setEquipamentos(rs.getString("equipamentos"));
+				unidadeCurricular.getProfessor().setNome(rs.getString("professor"));
+				unidadeCurricular.setCargaHorariaMateria(rs.getDouble("cargaHorariaMateria"));
+				unidadeCurricular.setDataInicio(rs.getDate("dataInicio"));
+				unidadeCurricular.setDataFinal(rs.getDate("dataFinal"));
+
+				listaUnidadeCurriculares.add(unidadeCurricular);
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return listaUnidadeCurriculares;
 	}
 
 }

@@ -1,13 +1,21 @@
 package view;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.AbstractDocument.Content;
+
+import controller.SalaController;
+import model.Sala;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
@@ -16,6 +24,9 @@ public class InserirSalaUI extends JInternalFrame {
 	private JTextField jtfCodigoSala;
 	private JTextField jtfCapacidadeAluno;
 	private JTextField jtfEquipamentoSala;
+	private Sala salaParaEdicao;
+	private int posicaoParaEdicao;
+	
 
 	/**
 	 * Launch the application.
@@ -45,10 +56,52 @@ public class InserirSalaUI extends JInternalFrame {
 		panel.setBorder(new TitledBorder(null, "Dados da Sala", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					if (salaParaEdicao == null){
+						Sala sala = new Sala();
+						sala.setCodigo(jtfCodigoSala.getText());
+						sala.setnMaximoAlunos(Integer.parseInt(jtfCapacidadeAluno.getText()));
+						sala.setEquipamentos(jtfEquipamentoSala.getText());
+						
+						new SalaController().salvar(sala);
+						
+						JOptionPane.showMessageDialog(null, "Sala cadastrada com sucesso");
+					}else{
+						salaParaEdicao.setCodigo(jtfCodigoSala.getText());
+						salaParaEdicao.setnMaximoAlunos(Integer.parseInt(jtfCapacidadeAluno.getText()));
+						salaParaEdicao.setEquipamentos(jtfEquipamentoSala.getText());
+						
+						new SalaController().editar(salaParaEdicao);
+	
+						JOptionPane.showMessageDialog(null, "Sala editada com sucesso");
+					}
+					dispose();
+				} catch (Exception e){
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+				
+			}
+		});
 		
 		JButton btnConsultarSalasCadastradas = new JButton("Consultar salas cadastradas");
+		btnConsultarSalasCadastradas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultaSalaUI consultaSalaUI = new ConsultaSalaUI();
+				getParent().add(consultaSalaUI,0);
+				consultaSalaUI.setVisible(true);				
+			}
+		});
 		
 		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				jtfCodigoSala.setText("");
+				jtfCapacidadeAluno.setText("");
+				jtfEquipamentoSala.setText("");
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -131,5 +184,29 @@ public class InserirSalaUI extends JInternalFrame {
 		panel.setLayout(gl_panel);
 		getContentPane().setLayout(groupLayout);
 
+	}
+	public Sala getSalaParaEdicao() {
+		return salaParaEdicao;
+	}
+
+	public void setSalaParaEdicao(Sala salaParaEdicao) {
+		this.salaParaEdicao = salaParaEdicao;
+		preencherCamposParaEdicao();
+	}
+	
+	public int getPosicaoParaEdicao() {
+		return posicaoParaEdicao;
+	}
+
+	public void setPosicaoParaEdicao(int posicaoParaEdicao) {
+		this.posicaoParaEdicao = posicaoParaEdicao;
+	}
+
+	public void preencherCamposParaEdicao(){
+		if (salaParaEdicao != null){
+			jtfCodigoSala.setText(salaParaEdicao.getCodigo());
+			jtfCapacidadeAluno.setText(salaParaEdicao.getnMaximoAlunos()+"");
+			jtfEquipamentoSala.setText(salaParaEdicao.getEquipamentos());
+		}
 	}
 }

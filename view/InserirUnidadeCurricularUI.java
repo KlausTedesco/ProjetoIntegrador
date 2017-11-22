@@ -1,13 +1,18 @@
 package view;
 
 import java.awt.EventQueue;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import controller.UnidadeCurricularController;
+import model.Sala;
+import model.UnidadeCurricular;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
@@ -21,7 +26,9 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 	private JTextField jtfDataInicial;
 	private JTextField jtfDataFinal;
 	private JTextField jtfNumeroAlunos;
-	private JTextField textField;
+	private JTextField jtfEquipamentos;
+	private UnidadeCurricular unidadeCurricularParaEdicao;
+	private int posicaoParaEdicao;
 
 	/**
 	 * Launch the application.
@@ -47,12 +54,67 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 		setClosable(true);
 		setBounds(100, 100, 548, 350);
 		
+		JLabel lblFaseSemestre = new JLabel("Fase/Semestre:");
+		
+		JComboBox jcbFaseSemestre = new JComboBox();
+		jcbFaseSemestre.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9"}));
+		
 		JPanel jpDadosUnidCurricular = new JPanel();
 		jpDadosUnidCurricular.setBorder(new TitledBorder(null, "Dados da Unidade Curricular", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					if (unidadeCurricularParaEdicao == null){
+						UnidadeCurricular unidadeCurricular = new UnidadeCurricular();
+						unidadeCurricular.setCodigoUnidade(jtfUnidadeCurricular.getText());
+						unidadeCurricular.setNomeCurso(jtfCurso.getText());
+						unidadeCurricular.setFaseCurso(jcbFaseSemestre.getSelectedIndex());
+						unidadeCurricular.setCargaHorariaMateria(Double.parseDouble(jtfCargaHorariaCurso.getText()));
+						unidadeCurricular.setDataInicio(jtfDataInicial.getText());
+						unidadeCurricular.setDataFinal(jtfDataFinal.getText());
+						unidadeCurricular.setnAlunos(Integer.parseInt(jtfNumeroAlunos.getText()));
+						unidadeCurricular.setEquipamentos(jtfEquipamentos.getText());
+						
+						new UnidadeCurricularController().salvar(unidadeCurricular);
+						
+						JOptionPane.showMessageDialog(null, "Unidade curricular cadastrada com sucesso");
+					}else{
+						unidadeCurricularParaEdicao.setCodigoUnidade(jtfUnidadeCurricular.getText());
+						unidadeCurricularParaEdicao.setNomeCurso(jtfCurso.getText());
+						unidadeCurricularParaEdicao.setFaseCurso(jcbFaseSemestre.getSelectedIndex());
+						unidadeCurricularParaEdicao.setCargaHorariaMateria(Double.parseDouble(jtfCargaHorariaCurso.getText()));
+						unidadeCurricularParaEdicao.setDataInicio(jtfDataInicial.getText());
+						unidadeCurricularParaEdicao.setDataFinal(jtfDataFinal.getText());
+						unidadeCurricularParaEdicao.setnAlunos(Integer.parseInt(jtfNumeroAlunos.getText()));
+						unidadeCurricularParaEdicao.setEquipamentos(jtfEquipamentos.getText());
+						
+						new UnidadeCurricularController().editar(unidadeCurricularParaEdicao);
+	
+						JOptionPane.showMessageDialog(null, "Unidade curricular editada com sucesso");
+					}
+					dispose();
+				} catch (Exception e){
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+				
+			}
+		});
 		
 		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				jtfUnidadeCurricular.setText("");
+				jtfCurso.setText("");
+				jcbFaseSemestre.setSelectedItem("");
+				jtfCargaHorariaCurso.setText("");
+				jtfDataInicial.setText("");
+				jtfDataFinal.setText("");
+				jtfNumeroAlunos.setText("");
+				jtfEquipamentos.setText("");
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -88,11 +150,6 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 		jtfCurso = new JTextField();
 		jtfCurso.setColumns(10);
 		
-		JLabel lblFaseSemestre = new JLabel("Fase/Semestre:");
-		
-		JComboBox jcbFaseSemestre = new JComboBox();
-		jcbFaseSemestre.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9"}));
-		
 		JLabel lblCargaHoraria = new JLabel("Carga horaria:");
 		
 		jtfCargaHorariaCurso = new JTextField();
@@ -115,8 +172,8 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 		
 		JLabel lblEquipamentos = new JLabel("Equipamentos: ");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		jtfEquipamentos = new JTextField();
+		jtfEquipamentos.setColumns(10);
 		
 		JButton btnSelecionarProfessor = new JButton("Selecionar Professor");
 		GroupLayout gl_jpDadosUnidCurricular = new GroupLayout(jpDadosUnidCurricular);
@@ -148,7 +205,7 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 											.addComponent(lblDataFinal)))
 									.addComponent(jtfUnidadeCurricular)
 									.addComponent(jtfCurso)
-									.addComponent(textField, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE))
+									.addComponent(jtfEquipamentos, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_jpDadosUnidCurricular.createSequentialGroup()
 									.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.TRAILING, false)
 										.addComponent(jtfNumeroAlunos, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
@@ -189,13 +246,42 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.BASELINE)
 						.addComponent(jtfNumeroAlunos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(jtfEquipamentos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnSelecionarProfessor)
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		jpDadosUnidCurricular.setLayout(gl_jpDadosUnidCurricular);
 		getContentPane().setLayout(groupLayout);
+		
+		public UnidadeCurricular getUnidadeCurricularParaEdicao() {
+			return unidadeCurricularParaEdicao;
+		}
 
+		public void setUnidadeCurricularParaEdicao(UnidadeCurricular unidadeCurricularParaEdicao) {
+			this.unidadeCurricularParaEdicao = unidadeCurricularParaEdicao;
+			preencherCamposParaEdicao();
+		}
+		
+		public int getPosicaoParaEdicao() {
+			return posicaoParaEdicao;
+		}
+
+		public void setPosicaoParaEdicao(int posicaoParaEdicao) {
+			this.posicaoParaEdicao = posicaoParaEdicao;
+		}
+
+		public void preencherCamposParaEdicao(){
+			if (unidadeCurricularParaEdicao != null){
+				jtfUnidadeCurricular.setText(unidadeCurricularParaEdicao.getCodigoUnidade());
+				jtfCurso.setText(unidadeCurricularParaEdicao.getNomeCurso());
+				jcbFaseSemestre(unidadeCurricularParaEdicao.getFaseCurso());
+				jtfCargaHorariaCurso.setText(unidadeCurricularParaEdicao.getCargaHorariaMateria()+"");
+				jtfDataInicial.setText(unidadeCurricularParaEdicao.getDataInicio());
+				jtfDataFinal.setText(unidadeCurricularParaEdicao.getDataFinal());
+				jtfNumeroAlunos.setText(unidadeCurricularParaEdicao.getnAlunos()+"");
+				jtfEquipamentos.setText(unidadeCurricularParaEdicao.getEquipamentos());
+
+		}
 	}
 }

@@ -1,8 +1,11 @@
 package view;
 
 import java.awt.EventQueue;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
@@ -13,6 +16,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import controller.UnidadeCurricularController;
+import dao.UnidadeCurricularDAO;
+import model.UnidadeCurricular;
+import model.UnidadeCurricularTableModel;
 
 public class ConsultaUnidadeCurricularUI extends JInternalFrame {
 	private JTextField jtfPesquisarUnidCurricular;
@@ -48,10 +55,38 @@ public class ConsultaUnidadeCurricularUI extends JInternalFrame {
 		JScrollPane jspTabelaConsultaUnidCurricular = new JScrollPane();
 		
 		JButton btnInserir = new JButton("Inserir");
-		
+		btnInserir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				InserirUnidadeCurricularUI unidadeCurricularUI = new InserirUnidadeCurricularUI();
+				getParent().add(unidadeCurricularUI,0);
+				unidadeCurricularUI.setVisible(true);
+			}
+		});
 		JButton btnEditar = new JButton("Editar");
-		
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				int linhaSelecionada = jtListaUnidadeCurricular.getSelectedRow();
+				UnidadeCurricular unidadeCurricular = new UnidadeCurricularTableModel(UnidadeCurricularDAO.obterInstancia().listaUnidadeCurriculares).get(linhaSelecionada);
+				InserirUnidadeCurricularUI unidadeCurricularUI = new InserirUnidadeCurricularUI();
+				unidadeCurricularUI.setUnidadeCurricularParaEdicao(unidadeCurricular);
+				getParent().add(unidadeCurricularUI,0);
+				unidadeCurricularUI.setVisible(true);
+			}
+		});
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					int linhaSelecionada = jtListaUnidadeCurricular.getSelectedRow();
+					UnidadeCurricular unidadeCurricular = new UnidadeCurricularTableModel(UnidadeCurricularDAO.obterInstancia().listaUnidadeCurriculares).get(linhaSelecionada);
+					new UnidadeCurricularController().remover(unidadeCurricular);
+					JOptionPane.showMessageDialog(null, "Unidade curricular excluída com sucesso", "Exclusão da Unidade curricular",JOptionPane.WARNING_MESSAGE);
+				}catch(Exception e){
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}				
+			}
+		});		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -82,40 +117,23 @@ public class ConsultaUnidadeCurricularUI extends JInternalFrame {
 						.addComponent(btnExcluir))
 					.addContainerGap(20, Short.MAX_VALUE))
 		);
-		
 		jtListaUnidadeCurricular = new JTable();
-		jtListaUnidadeCurricular.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-			},
-			new String[] {
-				"Professor", "Unidade Curricular", "Curso", "Fase/Semestre"
-			}
-		));
-		jtListaUnidadeCurricular.getColumnModel().getColumn(0).setPreferredWidth(97);
-		jtListaUnidadeCurricular.getColumnModel().getColumn(1).setPreferredWidth(137);
-		jtListaUnidadeCurricular.getColumnModel().getColumn(2).setPreferredWidth(71);
-		jtListaUnidadeCurricular.getColumnModel().getColumn(3).setPreferredWidth(108);
+		UnidadeCurricularTableModel modelUnidadeCurricular = new UnidadeCurricularTableModel(new UnidadeCurricularController().listarTodos());
+		jtListaUnidadeCurricular.setModel(modelUnidadeCurricular);
 		jspTabelaConsultaUnidCurricular.setViewportView(jtListaUnidadeCurricular);
-		
-		JButton btnPesquisar = new JButton("Pesquisar");
-		
+
 		jtfPesquisarUnidCurricular = new JTextField();
 		jtfPesquisarUnidCurricular.setColumns(10);
+		
+		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				List<UnidadeCurricular> filtro = new UnidadeCurricularController().pesquisarUnidadeCurricularPorNome(jtfPesquisarUnidCurricular.getText());
+				
+				UnidadeCurricularTableModel modelUnidadeCurricular = new UnidadeCurricularTableModel(filtro);
+				jtListaUnidadeCurricular.setModel(modelUnidadeCurricular);
+			}
+		});		
 		GroupLayout gl_jpConsultaUnidCurricular = new GroupLayout(jpConsultaUnidCurricular);
 		gl_jpConsultaUnidCurricular.setHorizontalGroup(
 			gl_jpConsultaUnidCurricular.createParallelGroup(Alignment.LEADING)

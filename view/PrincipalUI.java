@@ -89,9 +89,23 @@ public class PrincipalUI extends JFrame {
 		menuBar.add(mnSalas);
 		
 		JMenuItem mntmInserirSala = new JMenuItem("Inserir Sala");
+		mntmInserirSala.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				InserirSalaUI salaUI = new InserirSalaUI();
+				contentPane.add(salaUI,0);
+				salaUI.setVisible(true);
+			}
+		});
 		mnSalas.add(mntmInserirSala);
 		
 		JMenuItem mntmConsultaSala = new JMenuItem("Consulta Sala");
+		mntmConsultaSala.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConsultaSalaUI consultaSalaUI = new ConsultaSalaUI();
+				contentPane.add(consultaSalaUI,0);
+				consultaSalaUI.setVisible(true);
+			}
+		});
 		mnSalas.add(mntmConsultaSala);
 		
 		JMenu mnDistribuicaoAutomatica = new JMenu("Distribui\u00E7\u00E3o Automatica");

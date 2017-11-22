@@ -1,8 +1,11 @@
 package view;
 
 import java.awt.EventQueue;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
@@ -15,6 +18,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import controller.SalaController;
+import dao.SalaDAO;
+import model.Sala;
+import model.SalaTableModel;
 
 public class ConsultaSalaUI extends JInternalFrame {
 	private JTextField jtfPesquisar;
@@ -50,10 +57,39 @@ public class ConsultaSalaUI extends JInternalFrame {
 		JScrollPane jspTabelaConsultaSala = new JScrollPane();
 		
 		JButton btnInserir = new JButton("Inserir");
+		btnInserir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				InserirSalaUI salaUI = new InserirSalaUI();
+				getParent().add(salaUI,0);
+				salaUI.setVisible(true);
+			}
+		});
 		
 		JButton btnEditar = new JButton("Editar");
-		
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				int linhaSelecionada = jtListaSala.getSelectedRow();
+				Sala sala = new SalaTableModel(SalaDAO.obterInstancia().listaSalas).get(linhaSelecionada);
+				InserirSalaUI salaUI = new InserirSalaUI();
+				salaUI.setSalaParaEdicao(sala);
+				getParent().add(salaUI,0);
+				salaUI.setVisible(true);
+			}
+		});
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					int linhaSelecionada = jtListaSala.getSelectedRow();
+					Sala sala = new SalaTableModel(SalaDAO.obterInstancia().listaSalas).get(linhaSelecionada);
+					new SalaController().remover(sala);
+					JOptionPane.showMessageDialog(null, "Sala excluída com sucesso", "Exclusão da Sala",JOptionPane.WARNING_MESSAGE);
+				}catch(Exception e){
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}				
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -87,37 +123,27 @@ public class ConsultaSalaUI extends JInternalFrame {
 		);
 		
 		jtListaSala = new JTable();
-		jtListaSala.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"C\u00F3digo / Nome", "Capacidade", "Equipamentos"
-			}
-		));
-		jtListaSala.getColumnModel().getColumn(0).setPreferredWidth(108);
-		jtListaSala.getColumnModel().getColumn(1).setPreferredWidth(98);
-		jtListaSala.getColumnModel().getColumn(2).setPreferredWidth(109);
+		SalaTableModel modelSala = new SalaTableModel(
+				new SalaController().listarTodos()
+				);
+		jtListaSala.setModel(modelSala);
 		jspTabelaConsultaSala.setViewportView(jtListaSala);
-		
+
 		jtfPesquisar = new JTextField();
 		jtfPesquisar.setColumns(10);
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				List<Sala> filtro = 
+						new SalaController().pesquisarSalaPorNome(jtfPesquisar.getText());
+				
+				SalaTableModel modelSala = new SalaTableModel(
+						filtro
+						);
+				jtListaSala.setModel(modelSala);
+			}
+		});		
 		GroupLayout gl_jpPesquisaSala = new GroupLayout(jpPesquisaSala);
 		gl_jpPesquisaSala.setHorizontalGroup(
 			gl_jpPesquisaSala.createParallelGroup(Alignment.LEADING)

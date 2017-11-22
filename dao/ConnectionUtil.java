@@ -10,8 +10,8 @@ public class ConnectionUtil {
     public static Connection getConnection(){
         try { 
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/";
-            con = DriverManager.getConnection(url,"root","");
+            String url = "jdbc:mysql://localhost:3306/projetoIntegrador";
+            con = DriverManager.getConnection(url,"root","root");
             con.setAutoCommit(true);
             return con;
         } catch ( ClassNotFoundException e){
