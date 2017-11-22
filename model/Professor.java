@@ -1,16 +1,16 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Professor {
-	
+
 	private int idProfessor;
 	private String nome;
 	private String matricula;
 	private Double cargaHorariaContratada;
 	private String formacao;
-	private ArrayList<DiaSemana> ListaDiaSemana;
-	private Horario horario;
+	private List<DiaSemana> ListaDiaSemana;
+	private List<UnidadeCurricular> unidadeCurriculares;
 
 	public Professor() {
 	}
@@ -53,22 +53,6 @@ public class Professor {
 		this.cargaHorariaContratada = cargaHorariaContratada;
 	}
 
-	public DiaSemana getDiaSemana() {
-		return diaSemana;
-	}
-
-	public void setDiaSemana(DiaSemana diaSemana) {
-		this.diaSemana = diaSemana;
-	}
-
-	public Horario getHorario() {
-		return horario;
-	}
-
-	public void setHorario(Horario horario) {
-		this.horario = horario;
-	}
-
 	public String getFormacao() {
 		return formacao;
 	}
@@ -81,7 +65,20 @@ public class Professor {
 	public String toString() {
 		return nome;
 	}
-	
-	
 
+	public List<DiaSemana> getListaDiaSemana() {
+		return ListaDiaSemana;
+	}
+
+	public void setListaDiaSemana(List<DiaSemana> listaDiaSemana) {
+		ListaDiaSemana = listaDiaSemana;
+	}
+
+	public List<UnidadeCurricular> getUnidadeCurriculares() {
+		return unidadeCurriculares;
+	}
+
+	public void setUnidadeCurriculares(List<UnidadeCurricular> uni) {
+		this.unidadeCurriculares = uni;
+	}
 }
