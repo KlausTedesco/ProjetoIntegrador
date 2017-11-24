@@ -20,6 +20,7 @@ import controller.UnidadeCurricularController;
 import dao.UnidadeCurricularDAO;
 import model.UnidadeCurricular;
 import model.UnidadeCurricularTableModel;
+import java.awt.Font;
 
 public class ConsultaUnidadeCurricularUI extends JInternalFrame {
 	private JTextField jtfPesquisarUnidCurricular;
@@ -47,7 +48,7 @@ public class ConsultaUnidadeCurricularUI extends JInternalFrame {
 	public ConsultaUnidadeCurricularUI() {
 		setTitle("Consulta Unidade Curricular");
 		setClosable(true);
-		setBounds(100, 100, 450, 308);
+		setBounds(1, 1, 450, 308);
 		
 		JPanel jpConsultaUnidCurricular = new JPanel();
 		jpConsultaUnidCurricular.setBorder(new TitledBorder(null, "Pesquisa de Unidade Curricular", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -55,51 +56,76 @@ public class ConsultaUnidadeCurricularUI extends JInternalFrame {
 		JScrollPane jspTabelaConsultaUnidCurricular = new JScrollPane();
 		
 		JButton btnInserir = new JButton("Inserir");
+		btnInserir.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnInserir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				InserirUnidadeCurricularUI unidadeCurricularUI = new InserirUnidadeCurricularUI();
 				getParent().add(unidadeCurricularUI,0);
 				unidadeCurricularUI.setVisible(true);
+				
 			}
 		});
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
 				int linhaSelecionada = jtListaUnidadeCurricular.getSelectedRow();
-				UnidadeCurricular unidadeCurricular = new UnidadeCurricularTableModel(UnidadeCurricularDAO.obterInstancia().listaUnidadeCurriculares).get(linhaSelecionada);
-				InserirUnidadeCurricularUI unidadeCurricularUI = new InserirUnidadeCurricularUI();
-				unidadeCurricularUI.setUnidadeCurricularParaEdicao(unidadeCurricular);
-				getParent().add(unidadeCurricularUI,0);
-				unidadeCurricularUI.setVisible(true);
+				if(linhaSelecionada >= 0){
+					UnidadeCurricular unidadeCurricular = new UnidadeCurricularTableModel(UnidadeCurricularDAO.obterInstancia().listaUnidadeCurriculares).get(linhaSelecionada);
+					InserirUnidadeCurricularUI unidadeCurricularUI = new InserirUnidadeCurricularUI();
+					unidadeCurricularUI.setUnidadeCurricularParaEdicao(unidadeCurricular);
+					getParent().add(unidadeCurricularUI,0);
+					unidadeCurricularUI.setVisible(true);
+				}else{
+					JOptionPane.showMessageDialog(null, "Selecione uma unidade curricular");
+				}
 			}
 		});
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					int linhaSelecionada = jtListaUnidadeCurricular.getSelectedRow();
-					UnidadeCurricular unidadeCurricular = new UnidadeCurricularTableModel(UnidadeCurricularDAO.obterInstancia().listaUnidadeCurriculares).get(linhaSelecionada);
-					new UnidadeCurricularController().remover(unidadeCurricular);
-					JOptionPane.showMessageDialog(null, "Unidade curricular excluída com sucesso", "Exclusão da Unidade curricular",JOptionPane.WARNING_MESSAGE);
+					if(linhaSelecionada >= 0){
+						UnidadeCurricular unidadeCurricular = new UnidadeCurricularTableModel(UnidadeCurricularDAO.obterInstancia().listaUnidadeCurriculares).get(linhaSelecionada);
+						new UnidadeCurricularController().remover(unidadeCurricular);
+						JOptionPane.showMessageDialog(null, "Unidade curricular excluída com sucesso", "Exclusão da Unidade curricular",JOptionPane.WARNING_MESSAGE);
+					}else{
+						JOptionPane.showMessageDialog(null, "Selecione uma unidade curricular");
+					}
 				}catch(Exception e){
 					JOptionPane.showMessageDialog(null, e.getMessage());
-				}				
+				}
+			
 			}
 		});		
+		
+		JButton btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				List<UnidadeCurricular> filtro = new UnidadeCurricularController().pesquisarUnidadeCurricularPorNome(jtfPesquisarUnidCurricular.getText());
+				
+				UnidadeCurricularTableModel modelUnidadeCurricular = new UnidadeCurricularTableModel(filtro);
+				jtListaUnidadeCurricular.setModel(modelUnidadeCurricular);
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(jpConsultaUnidCurricular, GroupLayout.PREFERRED_SIZE, 410, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jspTabelaConsultaUnidCurricular, GroupLayout.PREFERRED_SIZE, 409, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnInserir)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnEditar)
-							.addPreferredGap(ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnAtualizar)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(btnExcluir)))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
@@ -114,10 +140,12 @@ public class ConsultaUnidadeCurricularUI extends JInternalFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnInserir)
 						.addComponent(btnEditar)
-						.addComponent(btnExcluir))
-					.addContainerGap(20, Short.MAX_VALUE))
+						.addComponent(btnExcluir)
+						.addComponent(btnAtualizar))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		jtListaUnidadeCurricular = new JTable();
+		jtListaUnidadeCurricular.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		UnidadeCurricularTableModel modelUnidadeCurricular = new UnidadeCurricularTableModel(new UnidadeCurricularController().listarTodos());
 		jtListaUnidadeCurricular.setModel(modelUnidadeCurricular);
 		jspTabelaConsultaUnidCurricular.setViewportView(jtListaUnidadeCurricular);
@@ -126,6 +154,7 @@ public class ConsultaUnidadeCurricularUI extends JInternalFrame {
 		jtfPesquisarUnidCurricular.setColumns(10);
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				List<UnidadeCurricular> filtro = new UnidadeCurricularController().pesquisarUnidadeCurricularPorNome(jtfPesquisarUnidCurricular.getText());

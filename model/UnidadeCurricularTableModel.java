@@ -8,7 +8,6 @@ import javax.swing.table.AbstractTableModel;
 public class UnidadeCurricularTableModel extends AbstractTableModel{
 		
 	private static final long serialVersionUID = 1L;
-	private static final int COL_PROFESSOR = 0;
 	private static final int COL_CODIGO_UNIDADE = 1;
 	private static final int COL_NOME_CURSO = 2;
 	private static final int COL_FASE_CURSO = 3;
@@ -29,7 +28,6 @@ public class UnidadeCurricularTableModel extends AbstractTableModel{
 
 	public String getColumnName(int column) {
 
-		if (column == COL_PROFESSOR) return "Professor";
 		if (column == COL_CODIGO_UNIDADE) return "Unidade Curricular";
 		if (column == COL_NOME_CURSO) return "Curso";
 		if (column == COL_FASE_CURSO) return "Fase / Semestre";
@@ -38,33 +36,27 @@ public class UnidadeCurricularTableModel extends AbstractTableModel{
 
 	public Object getValueAt(int row, int column) {
 		UnidadeCurricular unidadeCurricular = valores.get(row);
-		if (column == COL_PROFESSOR)
-			return unidadeCurricular.getProfessor().getNome();
+		if (column == COL_CODIGO_UNIDADE) 
+				return unidadeCurricular.getCodigoUnidade();
 		else 
-			if (column == COL_CODIGO_UNIDADE) 
-					return unidadeCurricular.getCodigoUnidade();
+			if (column == COL_NOME_CURSO) 
+				return unidadeCurricular.getNomeCurso();
 			else 
-				if (column == COL_NOME_CURSO) 
-					return unidadeCurricular.getNomeCurso();
-				else 
-					if (column == COL_FASE_CURSO) 
-						return unidadeCurricular.getFaseCurso();
+				if (column == COL_FASE_CURSO) 
+					return unidadeCurricular.getFaseCurso();
 		return "";
 	}
 
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		UnidadeCurricular unidadeCurricular = valores.get(rowIndex);
-		if (columnIndex == COL_PROFESSOR)
-			unidadeCurricular.getProfessor().setNome(aValue.toString());
+		if (columnIndex == COL_CODIGO_UNIDADE) 
+			unidadeCurricular.setCodigoUnidade(aValue.toString());
 		else 
-			if (columnIndex == COL_CODIGO_UNIDADE) 
-				unidadeCurricular.setCodigoUnidade(aValue.toString());
+			if (columnIndex == COL_NOME_CURSO) 
+				unidadeCurricular.setNomeCurso(aValue.toString());
 			else 
-				if (columnIndex == COL_NOME_CURSO) 
-					unidadeCurricular.setNomeCurso(aValue.toString());
-				else 
-					if (columnIndex == COL_FASE_CURSO) 
-						unidadeCurricular.setFaseCurso(Integer.parseInt(aValue.toString()));
+				if (columnIndex == COL_FASE_CURSO) 
+					unidadeCurricular.setFaseCurso(Integer.parseInt(aValue.toString()));
 	}
 
 	public Class<?> getColumnClass(int columnIndex) {

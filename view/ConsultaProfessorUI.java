@@ -40,7 +40,7 @@ public class ConsultaProfessorUI extends JInternalFrame {
 	public ConsultaProfessorUI() {
 		setTitle("Consulta Professor");
 		setClosable(true);
-		setBounds(100, 100, 450, 300);
+		setBounds(1, 1, 450, 300);
 		
 		JPanel jpPesquisaProfessor = new JPanel();
 		jpPesquisaProfessor.setBorder(new TitledBorder(null, "Pesquisa de Professor", TitledBorder.LEADING, TitledBorder.TOP, null, null));

@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+import java.awt.Font;
 
 public class InserirSalaUI extends JInternalFrame {
 	private JTextField jtfCodigoSala;
@@ -50,12 +51,13 @@ public class InserirSalaUI extends JInternalFrame {
 	public InserirSalaUI() {
 		setClosable(true);
 		setTitle("Inserir Sala");
-		setBounds(100, 100, 450, 244);
+		setBounds(1, 1, 450, 244);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Dados da Sala", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -79,13 +81,14 @@ public class InserirSalaUI extends JInternalFrame {
 					}
 					dispose();
 				} catch (Exception e){
-					JOptionPane.showMessageDialog(null, e.getMessage());
+					JOptionPane.showMessageDialog(null, "Os campos marcados com asteriscos (*) são obrigatórios");
 				}
 				
 			}
 		});
 		
 		JButton btnConsultarSalasCadastradas = new JButton("Consultar salas cadastradas");
+		btnConsultarSalasCadastradas.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnConsultarSalasCadastradas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ConsultaSalaUI consultaSalaUI = new ConsultaSalaUI();
@@ -95,6 +98,7 @@ public class InserirSalaUI extends JInternalFrame {
 		});
 		
 		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				jtfCodigoSala.setText("");
@@ -131,16 +135,19 @@ public class InserirSalaUI extends JInternalFrame {
 		);
 		
 		JLabel lblCodigoNomeSala = new JLabel("C\u00F3digo/Nome da sala: ");
+		lblCodigoNomeSala.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		jtfCodigoSala = new JTextField();
 		jtfCodigoSala.setColumns(10);
 		
 		JLabel lblCapacidadeAluno = new JLabel("Capacidade de alunos:");
+		lblCapacidadeAluno.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		jtfCapacidadeAluno = new JTextField();
 		jtfCapacidadeAluno.setColumns(10);
 		
 		JLabel lblEquipamentoSala = new JLabel("Equipamentos disponiveis:");
+		lblEquipamentoSala.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		jtfEquipamentoSala = new JTextField();
 		jtfEquipamentoSala.setColumns(10);

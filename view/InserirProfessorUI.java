@@ -65,7 +65,7 @@ public class InserirProfessorUI extends JInternalFrame {
 	public InserirProfessorUI() {
 		setClosable(true);
 		setTitle("Inserir Professor");
-		setBounds(100, 100, 747, 438);
+		setBounds(1, 1, 747, 438);
 
 		JPanel jpDadosProfessor = new JPanel();
 		jpDadosProfessor.setBorder(new TitledBorder(null, "Dados Professor",

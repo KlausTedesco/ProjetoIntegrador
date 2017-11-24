@@ -22,6 +22,7 @@ import controller.SalaController;
 import dao.SalaDAO;
 import model.Sala;
 import model.SalaTableModel;
+import java.awt.Font;
 
 public class ConsultaSalaUI extends JInternalFrame {
 	private JTextField jtfPesquisar;
@@ -49,7 +50,7 @@ public class ConsultaSalaUI extends JInternalFrame {
 	public ConsultaSalaUI() {
 		setTitle("Consulta Sala");
 		setClosable(true);
-		setBounds(100, 100, 450, 300);
+		setBounds(1, 1, 450, 300);
 		
 		JPanel jpPesquisaSala = new JPanel();
 		jpPesquisaSala.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Pesquisa de Sala", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -57,39 +58,62 @@ public class ConsultaSalaUI extends JInternalFrame {
 		JScrollPane jspTabelaConsultaSala = new JScrollPane();
 		
 		JButton btnInserir = new JButton("Inserir");
+		btnInserir.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnInserir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				InserirSalaUI salaUI = new InserirSalaUI();
 				getParent().add(salaUI,0);
 				salaUI.setVisible(true);
+				
 			}
 		});
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
 				int linhaSelecionada = jtListaSala.getSelectedRow();
-				Sala sala = new SalaTableModel(SalaDAO.obterInstancia().listaSalas).get(linhaSelecionada);
-				InserirSalaUI salaUI = new InserirSalaUI();
-				salaUI.setSalaParaEdicao(sala);
-				getParent().add(salaUI,0);
-				salaUI.setVisible(true);
+				if(linhaSelecionada >= 0){
+					Sala sala = new SalaTableModel(SalaDAO.obterInstancia().listaSalas).get(linhaSelecionada);
+					InserirSalaUI salaUI = new InserirSalaUI();
+					salaUI.setSalaParaEdicao(sala);
+					getParent().add(salaUI,0);
+					salaUI.setVisible(true);
+				}else{
+					JOptionPane.showMessageDialog(null, "Selecione uma Sala");
+				}
 			}
 		});
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					int linhaSelecionada = jtListaSala.getSelectedRow();
-					Sala sala = new SalaTableModel(SalaDAO.obterInstancia().listaSalas).get(linhaSelecionada);
-					new SalaController().remover(sala);
-					JOptionPane.showMessageDialog(null, "Sala excluída com sucesso", "Exclusão da Sala",JOptionPane.WARNING_MESSAGE);
+						if(linhaSelecionada >= 0){
+						Sala sala = new SalaTableModel(SalaDAO.obterInstancia().listaSalas).get(linhaSelecionada);
+						new SalaController().remover(sala);
+						JOptionPane.showMessageDialog(null, "Sala excluída com sucesso", "Exclusão da Sala",JOptionPane.WARNING_MESSAGE);
+					}else{
+						JOptionPane.showMessageDialog(null, "Selecione uma Sala");
+					}
 				}catch(Exception e){
 					JOptionPane.showMessageDialog(null, e.getMessage());
-				}				
+				}
+				
 			}
 		});
+		
+		JButton btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<Sala> filtro = new SalaController().pesquisarSalaPorNome(jtfPesquisar.getText());
+				
+				SalaTableModel modelSala = new SalaTableModel(filtro);
+				jtListaSala.setModel(modelSala);
+			}
+		});
+		btnAtualizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -97,14 +121,16 @@ public class ConsultaSalaUI extends JInternalFrame {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(jpPesquisaSala, GroupLayout.PREFERRED_SIZE, 408, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+							.addGroup(groupLayout.createSequentialGroup()
 								.addComponent(btnInserir)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(btnEditar)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnAtualizar)
 								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnExcluir))
-							.addComponent(jspTabelaConsultaSala, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 407, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(jspTabelaConsultaSala, GroupLayout.PREFERRED_SIZE, 407, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(14, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
@@ -118,14 +144,13 @@ public class ConsultaSalaUI extends JInternalFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnInserir)
 						.addComponent(btnEditar)
-						.addComponent(btnExcluir))
+						.addComponent(btnExcluir)
+						.addComponent(btnAtualizar))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
 		jtListaSala = new JTable();
-		SalaTableModel modelSala = new SalaTableModel(
-				new SalaController().listarTodos()
-				);
+		SalaTableModel modelSala = new SalaTableModel(new SalaController().listarTodos());
 		jtListaSala.setModel(modelSala);
 		jspTabelaConsultaSala.setViewportView(jtListaSala);
 
@@ -133,14 +158,12 @@ public class ConsultaSalaUI extends JInternalFrame {
 		jtfPesquisar.setColumns(10);
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				List<Sala> filtro = 
-						new SalaController().pesquisarSalaPorNome(jtfPesquisar.getText());
+				List<Sala> filtro = new SalaController().pesquisarSalaPorNome(jtfPesquisar.getText());
 				
-				SalaTableModel modelSala = new SalaTableModel(
-						filtro
-						);
+				SalaTableModel modelSala = new SalaTableModel(filtro);
 				jtListaSala.setModel(modelSala);
 			}
 		});		

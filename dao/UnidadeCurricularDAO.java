@@ -28,18 +28,17 @@ public class UnidadeCurricularDAO {
 	public void salvar(UnidadeCurricular unidadeCurricular){
 		try {
 			String sql = "INSERT INTO unidadeCurricular (codigoUnidade, nomeCurso, faseCurso, nAlunos,"
-					+ "equipamentos, professor, cargaHorariaMateria, dataInicio, dataFinal) "
-					+ "VALUES (?,?,?,?,?,?,?,?,?)";
+					+ "equipamentos, cargaHorariaMateria, dataInicio, dataFinal) "
+					+ "VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, unidadeCurricular.getCodigoUnidade());
 			pstmt.setString(2, unidadeCurricular.getNomeCurso());
 			pstmt.setInt(3, unidadeCurricular.getFaseCurso());
 			pstmt.setInt(4, unidadeCurricular.getnAlunos());
 			pstmt.setString(5, unidadeCurricular.getEquipamentos());
-			pstmt.setString(6, unidadeCurricular.getProfessor().getNome());
-			pstmt.setDouble(7, unidadeCurricular.getCargaHorariaMateria());
-			pstmt.setDate(8, new Date(unidadeCurricular.getDataInicio().getTime()));
-			pstmt.setDate(9, new Date(unidadeCurricular.getDataFinal().getTime()));
+			pstmt.setDouble(6, unidadeCurricular.getCargaHorariaMateria());
+			pstmt.setDate(7, new Date(unidadeCurricular.getDataInicio().getTime()));
+			pstmt.setDate(8, new Date(unidadeCurricular.getDataFinal().getTime()));
 
 			pstmt.execute();
 		} catch (SQLException e){
@@ -62,7 +61,6 @@ public class UnidadeCurricularDAO {
 				unidadeCurricular.setFaseCurso(rs.getInt("faseCurso"));
 				unidadeCurricular.setnAlunos(rs.getInt("nAlunos"));
 				unidadeCurricular.setEquipamentos(rs.getString("equipamentos"));
-				unidadeCurricular.getProfessor().setNome(rs.getString("professor"));
 				unidadeCurricular.setCargaHorariaMateria(rs.getInt("cargaHorariaMateria"));
 				unidadeCurricular.setDataInicio(rs.getDate("dataInicio"));
 				unidadeCurricular.setDataFinal(rs.getDate("dataFinal"));
@@ -80,19 +78,18 @@ public class UnidadeCurricularDAO {
 	public void editar(UnidadeCurricular unidadeCurricular){
 		try {
 			String sql = "UPDATE unidadeCurricular SET codigoUnidade = ?, "
-					+ "nomeCurso = ?, faseCurso = ?, nAlunos = ?, equipamentos = ?, idProfessor = ?, cargaHorariaMateria = ?"
-					+ "dataInicio = ?, dataFinal = ? WHERE idUnidadeCurricular = ?";
+					+ " nomeCurso = ?, faseCurso = ?, nAlunos = ?, equipamentos = ?, cargaHorariaMateria = ?,"
+					+ " dataInicio = ?, dataFinal = ? WHERE idUnidadeCurricular = ?";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, unidadeCurricular.getCodigoUnidade());
 			pstmt.setString(2, unidadeCurricular.getNomeCurso());
 			pstmt.setInt(3, unidadeCurricular.getFaseCurso());
 			pstmt.setInt(4, unidadeCurricular.getnAlunos());
 			pstmt.setString(5, unidadeCurricular.getEquipamentos());
-			pstmt.setString(6, unidadeCurricular.getProfessor().getNome());
-			pstmt.setDouble(7, unidadeCurricular.getCargaHorariaMateria());
-			pstmt.setDate(8, new Date(unidadeCurricular.getDataInicio().getTime()));
-			pstmt.setDate(9, new Date(unidadeCurricular.getDataFinal().getTime()));
-			pstmt.setInt(10, unidadeCurricular.getIdUnidadeCurricular());
+			pstmt.setDouble(6, unidadeCurricular.getCargaHorariaMateria());
+			pstmt.setDate(7, new Date(unidadeCurricular.getDataInicio().getTime()));
+			pstmt.setDate(8, new Date(unidadeCurricular.getDataFinal().getTime()));
+			pstmt.setInt(9, unidadeCurricular.getIdUnidadeCurricular());
 
 			pstmt.execute();
 		} catch (SQLException e){
@@ -127,7 +124,6 @@ public class UnidadeCurricularDAO {
 				unidadeCurricular.setFaseCurso(rs.getInt("faseCurso"));
 				unidadeCurricular.setnAlunos(rs.getInt("nAlunos"));
 				unidadeCurricular.setEquipamentos(rs.getString("equipamentos"));
-				unidadeCurricular.getProfessor().setNome(rs.getString("professor"));
 				unidadeCurricular.setCargaHorariaMateria(rs.getInt("cargaHorariaMateria"));
 				unidadeCurricular.setDataInicio(rs.getDate("dataInicio"));
 				unidadeCurricular.setDataFinal(rs.getDate("dataFinal"));
