@@ -129,11 +129,33 @@ public class PrincipalUI extends JFrame {
 		mnDistribuicaoAutomatica.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		menuBar.add(mnDistribuicaoAutomatica);
 		
-		JMenuItem mntmExecutar = new JMenuItem("Executar");
-		mntmExecutar.setFont(new Font("Segoe UI", Font.PLAIN, 17));
-		mnDistribuicaoAutomatica.add(mntmExecutar);
+		JMenuItem mntmInserirDados = new JMenuItem("Inserir Dados");
+		mntmInserirDados.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				
+				
+				///>>>>>
+				
+				
+				
+				
+			}
+		});
+		mntmInserirDados.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+		mnDistribuicaoAutomatica.add(mntmInserirDados);
 		
 		JMenuItem mntmEditarDistribuicao = new JMenuItem("Editar Distribui\u00E7\u00E3o");
+		mntmEditarDistribuicao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				////>>>>>>
+				
+				
+			}
+		});
 		mntmEditarDistribuicao.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mnDistribuicaoAutomatica.add(mntmEditarDistribuicao);
 		contentPane = new JPanel();

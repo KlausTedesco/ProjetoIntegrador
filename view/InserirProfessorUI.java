@@ -115,52 +115,35 @@ public class InserirProfessorUI extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
+		
+		JButton btnConsultarProfessores = new JButton("Consultar professores");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout
-				.setHorizontalGroup(groupLayout
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(
-								groupLayout
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												groupLayout
-														.createParallelGroup(
-																Alignment.LEADING)
-														.addComponent(
-																jpDadosProfessor,
-																GroupLayout.PREFERRED_SIZE,
-																410,
-																Short.MAX_VALUE)
-														.addGroup(
-																groupLayout
-																		.createSequentialGroup()
-																		.addComponent(
-																				btnSalvar)
-																		.addPreferredGap(
-																				ComponentPlacement.RELATED,
-																				569,
-																				Short.MAX_VALUE)
-																		.addComponent(
-																				btnLimpar)))
-										.addContainerGap()));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(
-				Alignment.LEADING)
-				.addGroup(
-						groupLayout
-								.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(jpDadosProfessor,
-										GroupLayout.PREFERRED_SIZE, 345,
-										GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(
-										groupLayout
-												.createParallelGroup(
-														Alignment.BASELINE)
-												.addComponent(btnSalvar)
-												.addComponent(btnLimpar))
-								.addContainerGap(78, Short.MAX_VALUE)));
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(jpDadosProfessor, GroupLayout.PREFERRED_SIZE, 707, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnSalvar)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnConsultarProfessores)
+							.addPreferredGap(ComponentPlacement.RELATED, 463, Short.MAX_VALUE)
+							.addComponent(btnLimpar)))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(jpDadosProfessor, GroupLayout.PREFERRED_SIZE, 345, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnSalvar)
+						.addComponent(btnLimpar)
+						.addComponent(btnConsultarProfessores))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
 
 		JLabel lblNome = new JLabel("Nome:");
 

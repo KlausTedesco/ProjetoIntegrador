@@ -8,9 +8,9 @@ import javax.swing.table.AbstractTableModel;
 public class UnidadeCurricularTableModel extends AbstractTableModel{
 		
 	private static final long serialVersionUID = 1L;
-	private static final int COL_CODIGO_UNIDADE = 1;
-	private static final int COL_NOME_CURSO = 2;
-	private static final int COL_FASE_CURSO = 3;
+	private static final int COL_CODIGO_UNIDADE = 0;
+	private static final int COL_NOME_CURSO = 1;
+	private static final int COL_FASE_CURSO = 2;
 
 	private List<UnidadeCurricular> valores;       
 
@@ -23,7 +23,7 @@ public class UnidadeCurricularTableModel extends AbstractTableModel{
 	}
 
 	public int getColumnCount() {
-		return 4;
+		return 3;
 	}
 
 	public String getColumnName(int column) {

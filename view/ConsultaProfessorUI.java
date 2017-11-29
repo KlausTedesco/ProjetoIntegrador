@@ -53,7 +53,7 @@ public class ConsultaProfessorUI extends JInternalFrame {
 		
 		JButton btnExcluir = new JButton("Excluir");
 		
-		JButton btnSelecionar = new JButton("Selecionar");
+		JButton btnAtualizar = new JButton("Atualizar");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -67,7 +67,7 @@ public class ConsultaProfessorUI extends JInternalFrame {
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(btnEditar)
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnSelecionar)
+								.addComponent(btnAtualizar)
 								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnExcluir))
 							.addComponent(jspTabelaConsultaProfessor, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 406, GroupLayout.PREFERRED_SIZE)))
@@ -85,7 +85,7 @@ public class ConsultaProfessorUI extends JInternalFrame {
 						.addComponent(btnInserir)
 						.addComponent(btnEditar)
 						.addComponent(btnExcluir)
-						.addComponent(btnSelecionar))
+						.addComponent(btnAtualizar))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
