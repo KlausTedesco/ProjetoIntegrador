@@ -2,7 +2,6 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -53,7 +52,6 @@ public class PrincipalUI extends JFrame {
 		JMenuItem mntmInserirProfessor = new JMenuItem("Inserir Professor");
 		mntmInserirProfessor.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 		mntmInserirProfessor.addActionListener(new ActionListener() {
-			
 			public void actionPerformed(ActionEvent e) {
 				InserirProfessorUI inserirProfessorUI = new InserirProfessorUI();
 				contentPane.add(inserirProfessorUI, 0);
@@ -132,15 +130,9 @@ public class PrincipalUI extends JFrame {
 		JMenuItem mntmInserirDados = new JMenuItem("Inserir Dados");
 		mntmInserirDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				
-				
-				
-				///>>>>>
-				
-				
-				
-				
+				InserirDadosUI inserirDadosUI = new InserirDadosUI();
+				contentPane.add(inserirDadosUI,0);
+				inserirDadosUI.setVisible(true);
 			}
 		});
 		mntmInserirDados.setFont(new Font("Segoe UI", Font.PLAIN, 17));
@@ -149,11 +141,9 @@ public class PrincipalUI extends JFrame {
 		JMenuItem mntmEditarDistribuicao = new JMenuItem("Editar Distribui\u00E7\u00E3o");
 		mntmEditarDistribuicao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				////>>>>>>
-				
-				
+				EditarDistribuicaoUI editarDistribuicaoUI = new EditarDistribuicaoUI();
+				contentPane.add(editarDistribuicaoUI,0);
+				editarDistribuicaoUI.setVisible(true);
 			}
 		});
 		mntmEditarDistribuicao.setFont(new Font("Segoe UI", Font.PLAIN, 17));

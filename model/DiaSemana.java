@@ -1,7 +1,10 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class DiaSemana {
@@ -46,6 +49,20 @@ public class DiaSemana {
 
 	public List<Horario> getHorarios() {
 		return horarios;
+	}
+	
+	public void removeHorariosEquals(DiaSemana ds) {
+
+		Map<Integer,Horario> map = new HashMap<Integer,Horario>();
+		for (Horario h : this.horarios) map.put(h.getNumero(),h);
+		
+		ds.getHorarios().forEach( hor -> {
+			if(map.remove(hor.getNumero()) == null){
+				map.put(hor.getNumero(), hor);
+			}
+		});
+		
+		this.horarios = new ArrayList<Horario>(map.values());
 	}
 	
 	

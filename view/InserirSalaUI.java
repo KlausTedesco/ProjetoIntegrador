@@ -3,17 +3,14 @@ package view;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.AbstractDocument.Content;
-
 import controller.SalaController;
 import model.Sala;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -79,14 +76,14 @@ public class InserirSalaUI extends JInternalFrame {
 	
 						JOptionPane.showMessageDialog(null, "Sala editada com sucesso");
 					}
-					dispose();
+					jtfCodigoSala.setText("");
+					jtfCapacidadeAluno.setText("");
+					jtfEquipamentoSala.setText("");
 				} catch (Exception e){
 					JOptionPane.showMessageDialog(null, "Os campos marcados com asteriscos (*) são obrigatórios");
 				}
-				
 			}
 		});
-		
 		JButton btnConsultarSalasCadastradas = new JButton("Consultar salas cadastradas");
 		btnConsultarSalasCadastradas.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnConsultarSalasCadastradas.addActionListener(new ActionListener() {
@@ -96,7 +93,6 @@ public class InserirSalaUI extends JInternalFrame {
 				consultaSalaUI.setVisible(true);				
 			}
 		});
-		
 		JButton btnLimpar = new JButton("Limpar");
 		btnLimpar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnLimpar.addActionListener(new ActionListener() {

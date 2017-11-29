@@ -1,12 +1,20 @@
 package view;
 
 import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import controller.ProfessorController;
+import controller.UnidadeCurricularController;
+import model.DistribuicaoAutomatica;
+import model.ItemVenda;
+import model.ItemVendaTableModel;
+import model.Produto;
+import model.Professor;
+import model.UnidadeCurricular;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JEditorPane;
@@ -18,10 +26,17 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
-public class ExecutarUI extends JInternalFrame {
+public class InserirDadosUI extends JInternalFrame {
 	private JTable jtAssociacoes;
+	private ProfessorController professorControl = new ProfessorController();
+	private JComboBox <Professor> jcbProfessor;
+	private UnidadeCurricularController unidadeCurricularControl = new UnidadeCurricularController();
+	private JComboBox <UnidadeCurricular> jcbUnidadeCurricular;
+	private JComboBox jcbCargaHoraria;
+	private List <DistribuicaoAutomatica> ListaProfessoresUnidades;
 
 	/**
 	 * Launch the application.
@@ -30,7 +45,7 @@ public class ExecutarUI extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ExecutarUI frame = new ExecutarUI();
+					InserirDadosUI frame = new InserirDadosUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,7 +57,7 @@ public class ExecutarUI extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ExecutarUI() {
+	public InserirDadosUI() {
 		setClosable(true);
 		setTitle("Inserir Dados da Distribui\u00E7\u00E3o Autom\u00E1tica de Sala");
 		setBounds(1, 1, 450, 400);
@@ -108,17 +123,46 @@ public class ExecutarUI extends JInternalFrame {
 		
 		JLabel lblProfessor = new JLabel("Professor:");
 		
+		DefaultComboBoxModel<Professor> modelProfessor = new DefaultComboBoxModel<>();
+		for (Professor professor : professorControl.listarTodos()) {
+			modelProfessor.addElement(professor);
+		}
+		jcbProfessor = new JComboBox<>();
+		jcbProfessor.setModel(modelProfessor);
+		
 		JLabel lblCargaHoraria = new JLabel("Carga Horaria:");
+		
+		jcbCargaHoraria = new JComboBox();
+		jcbCargaHoraria.setModel(new DefaultComboBoxModel(new Integer[] {35, 70, 140, 280}));
 		
 		JLabel lblUnidadeCurricular = new JLabel("Unidade Curricular:");
 		
-		JComboBox jcbProfessor = new JComboBox();
-		
-		JComboBox jcbCargaHoraria = new JComboBox();
+		DefaultComboBoxModel<UnidadeCurricular> modelUnidadeCurricular = new DefaultComboBoxModel<>();
+		for (UnidadeCurricular unidadeCurricular : unidadeCurricularControl.listarTodos()) {
+			modelUnidadeCurricular.addElement(unidadeCurricular);
+		}
+		jcbUnidadeCurricular = new JComboBox<>();
+		jcbUnidadeCurricular.setModel(modelUnidadeCurricular);
+			
 		
 		JComboBox jcbUnidadeCurricular = new JComboBox();
 		
 		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Lista "ListaProfessoresUnidades" onde passara Identificação;
+				jcbUnidadeCurricular.setSelectedItem(xx);
+				jcbProfessor.setSelectedItem(xx);
+				
+				
+				ListaProfessoresUnidades.add(Identificação);
+				
+				DistribuicaoAutomaticaTableModel modelDistribuicaoAutomatica = new DistribuicaoAutomaticaTableModel(Identificação);
+				jtAssociacoes.setModel(modelDistribuicaoAutomatica);
+				
+			}
+		});
 		GroupLayout gl_panelRegistrarAssociacao = new GroupLayout(panelRegistrarAssociacao);
 		gl_panelRegistrarAssociacao.setHorizontalGroup(
 			gl_panelRegistrarAssociacao.createParallelGroup(Alignment.LEADING)

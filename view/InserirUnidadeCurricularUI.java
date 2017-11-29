@@ -25,13 +25,13 @@ import java.awt.Font;
 public class InserirUnidadeCurricularUI extends JInternalFrame {
 	private JTextField jtfUnidadeCurricular;
 	private JTextField jtfCurso;
-	private JTextField jtfCargaHorariaCurso;
 	private JTextField jtfDataInicial;
 	private JTextField jtfDataFinal;
 	private JTextField jtfNumeroAlunos;
 	private JTextField jtfEquipamentos;
 	private UnidadeCurricular unidadeCurricularParaEdicao;
 	private JComboBox jcbFaseSemestre;
+	private JComboBox jcbCargaHorariaCurso;
 	private int posicaoParaEdicao;
 	
 	/**
@@ -64,6 +64,12 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 		jcbFaseSemestre = new JComboBox();
 		jcbFaseSemestre.setModel(new DefaultComboBoxModel(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9}));
 		
+		JLabel lblCargaHoraria = new JLabel("Carga horaria:");
+		lblCargaHoraria.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		jcbCargaHorariaCurso = new JComboBox();
+		jcbCargaHorariaCurso.setModel(new DefaultComboBoxModel(new Integer[] {35, 70, 140, 280}));
+		
 		JPanel jpDadosUnidCurricular = new JPanel();
 		jpDadosUnidCurricular.setBorder(new TitledBorder(null, "Dados da Unidade Curricular", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
@@ -78,7 +84,7 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 						unidadeCurricular.setNomeCurso(jtfCurso.getText());
 						unidadeCurricular.setFaseCurso((Integer)jcbFaseSemestre.getSelectedItem());
 						unidadeCurricular.setEquipamentos(jtfEquipamentos.getText());
-						unidadeCurricular.setCargaHorariaMateria(Integer.parseInt(jtfCargaHorariaCurso.getText()));
+						unidadeCurricular.setCargaHorariaMateria((Integer)jcbCargaHorariaCurso.getSelectedItem());
 						unidadeCurricular.setDataInicio(new SimpleDateFormat("dd/MM/yyyy").parse(jtfDataInicial.getText()));
 						unidadeCurricular.setDataFinal(new SimpleDateFormat("dd/MM/yyyy").parse(jtfDataFinal.getText()));
 						unidadeCurricular.setnAlunos(Integer.parseInt(jtfNumeroAlunos.getText()));
@@ -90,7 +96,7 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 						unidadeCurricularParaEdicao.setNomeCurso(jtfCurso.getText());
 						unidadeCurricularParaEdicao.setFaseCurso((Integer)jcbFaseSemestre.getSelectedItem());
 						unidadeCurricularParaEdicao.setEquipamentos(jtfEquipamentos.getText());
-						unidadeCurricularParaEdicao.setCargaHorariaMateria(Integer.parseInt(jtfCargaHorariaCurso.getText()));
+						unidadeCurricularParaEdicao.setCargaHorariaMateria((Integer)jcbCargaHorariaCurso.getSelectedItem());
 						unidadeCurricularParaEdicao.setDataInicio(new SimpleDateFormat("dd/MM/yyyy").parse(jtfDataInicial.getText()));
 						unidadeCurricularParaEdicao.setDataFinal(new SimpleDateFormat("dd/MM/yyyy").parse(jtfDataFinal.getText()));
 						unidadeCurricularParaEdicao.setnAlunos(Integer.parseInt(jtfNumeroAlunos.getText()));
@@ -98,7 +104,14 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 						new UnidadeCurricularController().editar(unidadeCurricularParaEdicao);
 						JOptionPane.showMessageDialog(null, "Unidade curricular editada com sucesso");
 					}
-					dispose();
+					jtfUnidadeCurricular.setText("");
+					jtfCurso.setText("");
+					jcbFaseSemestre.setSelectedItem("");
+					jcbCargaHorariaCurso.setSelectedItem("");
+					jtfDataInicial.setText("");
+					jtfDataFinal.setText("");
+					jtfNumeroAlunos.setText("");
+					jtfEquipamentos.setText("");
 				} catch (Exception e){
 					JOptionPane.showMessageDialog(null,"Os campos marcados com asteriscos (*) são obrigatórios");
 				}
@@ -113,7 +126,7 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 				jtfUnidadeCurricular.setText("");
 				jtfCurso.setText("");
 				jcbFaseSemestre.setSelectedItem("");
-				jtfCargaHorariaCurso.setText("");
+				jcbCargaHorariaCurso.setSelectedItem("");
 				jtfDataInicial.setText("");
 				jtfDataFinal.setText("");
 				jtfNumeroAlunos.setText("");
@@ -172,12 +185,6 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 		jtfCurso = new JTextField();
 		jtfCurso.setColumns(10);
 		
-		JLabel lblCargaHoraria = new JLabel("Carga horaria:");
-		lblCargaHoraria.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
-		jtfCargaHorariaCurso = new JTextField();
-		jtfCargaHorariaCurso.setColumns(10);
-		
 		JLabel lblDataInicial = new JLabel("Data inicial:");
 		lblDataInicial.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
@@ -201,6 +208,7 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 		
 		jtfEquipamentos = new JTextField();
 		jtfEquipamentos.setColumns(10);
+		
 		GroupLayout gl_jpDadosUnidCurricular = new GroupLayout(jpDadosUnidCurricular);
 		gl_jpDadosUnidCurricular.setHorizontalGroup(
 			gl_jpDadosUnidCurricular.createParallelGroup(Alignment.LEADING)
@@ -216,7 +224,7 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 									.addComponent(lblFaseSemestre, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 								.addGap(18)
 								.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(jtfCargaHorariaCurso, 0, 0, Short.MAX_VALUE)
+									.addComponent(jcbCargaHorariaCurso, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 									.addComponent(lblCargaHoraria, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 								.addGap(18)
 								.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.LEADING)
@@ -235,7 +243,7 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 								.addComponent(lblNumeroAlunos, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addGap(18)
 							.addComponent(lblEquipamentos)))
-					.addContainerGap(18, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		gl_jpDadosUnidCurricular.setVerticalGroup(
 			gl_jpDadosUnidCurricular.createParallelGroup(Alignment.LEADING)
@@ -256,9 +264,9 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.BASELINE)
 						.addComponent(jcbFaseSemestre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jtfCargaHorariaCurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jtfDataInicial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(jtfDataFinal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(jtfDataFinal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jcbCargaHorariaCurso, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNumeroAlunos)
@@ -267,7 +275,7 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 					.addGroup(gl_jpDadosUnidCurricular.createParallelGroup(Alignment.BASELINE)
 						.addComponent(jtfNumeroAlunos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(jtfEquipamentos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(34, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		jpDadosUnidCurricular.setLayout(gl_jpDadosUnidCurricular);
 		getContentPane().setLayout(groupLayout);
@@ -295,7 +303,7 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 				jtfUnidadeCurricular.setText(unidadeCurricularParaEdicao.getCodigoUnidade());
 				jtfCurso.setText(unidadeCurricularParaEdicao.getNomeCurso());
 				jcbFaseSemestre.setSelectedItem(unidadeCurricularParaEdicao.getFaseCurso());
-				jtfCargaHorariaCurso.setText(unidadeCurricularParaEdicao.getCargaHorariaMateria()+"");
+				jcbCargaHorariaCurso.setSelectedItem(unidadeCurricularParaEdicao.getCargaHorariaMateria());
 				jtfDataInicial.setText(new SimpleDateFormat("dd/MM/yyyy").format(unidadeCurricularParaEdicao.getDataInicio()));
 				jtfDataFinal.setText(new SimpleDateFormat("dd/MM/yyyy").format(unidadeCurricularParaEdicao.getDataFinal()));
 				jtfNumeroAlunos.setText(unidadeCurricularParaEdicao.getnAlunos()+"");

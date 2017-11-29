@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Professor {
@@ -72,6 +73,11 @@ public class Professor {
 
 	public void setListaDiaSemana(List<DiaSemana> listaDiaSemana) {
 		ListaDiaSemana = listaDiaSemana;
+	}
+	
+	public void setListaDiaSemana(DiaSemana diaSemana) {
+		if(ListaDiaSemana == null) new ArrayList<DiaSemana>();
+		ListaDiaSemana.add(diaSemana);
 	}
 
 	public List<UnidadeCurricular> getUnidadeCurriculares() {

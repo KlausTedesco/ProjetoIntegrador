@@ -33,11 +33,13 @@ import model.DiaSemana;
 import model.Horario;
 import model.Professor;
 import controller.ProfessorController;
+import exeptions.HorarioExeption;
 
 public class InserirProfessorUI extends JInternalFrame {
 	private JTextField jtfNome;
 	private JTextField jtfMatricula;
 	// private JTextField
+	private JComboBox jcbCargaHorariaMensal;
 	private JTextField jtfFormacao;
 	private List<DiaSemana> diasSemana;
 	private Map<Integer, DiaSemana> semanaMap;
@@ -65,13 +67,18 @@ public class InserirProfessorUI extends JInternalFrame {
 	public InserirProfessorUI() {
 		setClosable(true);
 		setTitle("Inserir Professor");
-		setBounds(1, 1, 747, 438);
+		setBounds(100, 100, 747, 438);
 
 		JPanel jpDadosProfessor = new JPanel();
 		jpDadosProfessor.setBorder(new TitledBorder(null, "Dados Professor",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
-		JComboBox jcbCargaHorariaMensal = new JComboBox();
+		jcbCargaHorariaMensal = new JComboBox();
+		jcbCargaHorariaMensal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				jcbCargaHorariaMensal.setSelectedItem(jcbCargaHorariaMensal.getSelectedItem());
+			}
+		});
 		jcbCargaHorariaMensal.setModel(new DefaultComboBoxModel(new String[] {
 				"10", "20", "30", "40", "50", "60" }));
 
@@ -89,22 +96,35 @@ public class InserirProfessorUI extends JInternalFrame {
 					professor.setFormacao(jtfFormacao.getText());
 					professor.setListaDiaSemana(new ArrayList<DiaSemana>(semanaMap.values()));
 
-					new ProfessorController().salvar(professor);
+					try {
+						new ProfessorController().salvar(professor);
+						JOptionPane.showMessageDialog(null,"Professor Cadastrado com sucesso");
+					}catch (HorarioExeption e) {
+						// TODO: handle exception
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 
-					JOptionPane.showMessageDialog(null,
-							"Professor Cadastrado com sucesso");
 				} else {
+					
 					professorParaEdicao.setNome(jtfNome.getText());
 					professorParaEdicao.setMatricula(jtfMatricula.getText());
 					professorParaEdicao.setCargaHorariaContratada(Double
 							.parseDouble(jcbCargaHorariaMensal
 									.getSelectedItem().toString()));
 					professorParaEdicao.setFormacao(jtfFormacao.getText());
+					professorParaEdicao.setListaDiaSemana(new ArrayList<DiaSemana>(semanaMap.values()));
 
-					new ProfessorController().editar(professorParaEdicao);
+					try {
+						new ProfessorController().editar(professorParaEdicao);
+						JOptionPane.showMessageDialog(null,"Professor Editado com sucesso");
 
-					JOptionPane.showMessageDialog(null,
-							"Professor Editado com sucesso");
+					}catch (HorarioExeption e) {
+							// TODO: handle exception
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
 				}
 				dispose();
 			}
@@ -115,35 +135,52 @@ public class InserirProfessorUI extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		
-		JButton btnConsultarProfessores = new JButton("Consultar professores");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(jpDadosProfessor, GroupLayout.PREFERRED_SIZE, 707, Short.MAX_VALUE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnSalvar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnConsultarProfessores)
-							.addPreferredGap(ComponentPlacement.RELATED, 463, Short.MAX_VALUE)
-							.addComponent(btnLimpar)))
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(jpDadosProfessor, GroupLayout.PREFERRED_SIZE, 345, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnSalvar)
-						.addComponent(btnLimpar)
-						.addComponent(btnConsultarProfessores))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
+		groupLayout
+				.setHorizontalGroup(groupLayout
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								groupLayout
+										.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(
+												groupLayout
+														.createParallelGroup(
+																Alignment.LEADING)
+														.addComponent(
+																jpDadosProfessor,
+																GroupLayout.PREFERRED_SIZE,
+																410,
+																Short.MAX_VALUE)
+														.addGroup(
+																groupLayout
+																		.createSequentialGroup()
+																		.addComponent(
+																				btnSalvar)
+																		.addPreferredGap(
+																				ComponentPlacement.RELATED,
+																				569,
+																				Short.MAX_VALUE)
+																		.addComponent(
+																				btnLimpar)))
+										.addContainerGap()));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(
+				Alignment.LEADING)
+				.addGroup(
+						groupLayout
+								.createSequentialGroup()
+								.addContainerGap()
+								.addComponent(jpDadosProfessor,
+										GroupLayout.PREFERRED_SIZE, 345,
+										GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(
+										groupLayout
+												.createParallelGroup(
+														Alignment.BASELINE)
+												.addComponent(btnSalvar)
+												.addComponent(btnLimpar))
+								.addContainerGap(78, Short.MAX_VALUE)));
 
 		JLabel lblNome = new JLabel("Nome:");
 
@@ -400,6 +437,10 @@ public class InserirProfessorUI extends JInternalFrame {
 		}else {
 			System.out.println("Deleted: "+dia.getNome());
 			semanaMap.get(dia.getNumero()).getHorarios().remove(horario);
+			
+			if(semanaMap.get(dia.getNumero()).getHorarios().size() == 0){
+				semanaMap.remove(dia.getNumero());
+			}
 		}
 		
 		printAll();
@@ -407,11 +448,11 @@ public class InserirProfessorUI extends JInternalFrame {
 	}
 	
 	public void printAll() {
-		System.out.println("FIREDED");
-		for(DiaSemana ds: new ArrayList<DiaSemana>(semanaMap.values())){
+//		System.out.println("FIREDED");
+		/*for(DiaSemana ds: new ArrayList<DiaSemana>(semanaMap.values())){
 			for(Horario h: ds.getHorarios()){
 				System.out.println("DIA: "+ ds.getNome() +", horario: "+ h.getNome());
 			}
-		}
+		}*/
 	}
 }

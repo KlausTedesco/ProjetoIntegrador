@@ -4,8 +4,9 @@ public class DistribuicaoAutomatica {
 	
 	private int idDistribuicaoAutomatica;
 	private UnidadeCurricular UnidadeCurricular;
+	private Professor professor;
 	private Sala Sala;
-	
+
 	public DistribuicaoAutomatica() {
 	}
 
@@ -32,5 +33,15 @@ public class DistribuicaoAutomatica {
 	public void setSala(Sala sala) {
 		Sala = sala;
 	}
+	
+	
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+
 
 }
