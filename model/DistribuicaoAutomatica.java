@@ -6,7 +6,8 @@ public class DistribuicaoAutomatica {
 	private UnidadeCurricular UnidadeCurricular;
 	private Professor professor;
 	private Sala Sala;
-
+	private CargaHorariaENUM cargaHoraria;
+	
 	public DistribuicaoAutomatica() {
 	}
 
@@ -43,5 +44,13 @@ public class DistribuicaoAutomatica {
 		this.professor = professor;
 	}
 
+	public CargaHorariaENUM getCargaHoraria() {
+		return cargaHoraria;
+	}
+
+	public void setCargaHoraria(CargaHorariaENUM cargaHoraria) {
+		this.cargaHoraria = cargaHoraria;
+	}
+    
 
 }

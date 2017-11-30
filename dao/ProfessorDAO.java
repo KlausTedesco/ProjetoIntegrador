@@ -31,13 +31,14 @@ public class ProfessorDAO {
 	public void salvar(Professor professor){
 	 printAll(professor);
 		try {
-			String sql = "insert into professor (idProfessor, nome, matricula, cargaContratada) "
-					+ "values (? , ?, ?, ?)";
+			String sql = "insert into professor (idProfessor, nome, matricula, cargaContratada, formacao) "
+					+ "values (? , ?, ?, ?, ?)";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, professor.getIdProfessor());
 			pstmt.setString(2, professor.getNome());
 			pstmt.setString(3, professor.getMatricula());
 			pstmt.setDouble(4, professor.getCargaHorariaContratada());
+			pstmt.setString(5, professor.getFormacao());
 
 			pstmt.execute();
 			
@@ -79,8 +80,9 @@ public class ProfessorDAO {
 				professor.setIdProfessor(rs.getInt("idProfessor"));
 				professor.setNome(rs.getString("nome"));
 				professor.setMatricula(rs.getString("matricula"));
-				professor.setCargaHorariaContratada(rs.getDouble("cargaHorariaContratada"));
-
+				professor.setCargaHorariaContratada(rs.getDouble("cargaContratada"));
+				professor.setFormacao(rs.getString("formacao"));
+				
 				Statement statement = con.createStatement();
 				String str = "select * from horario where idProfessor='"+professor.getIdProfessor()+"'";
 				ResultSet result = statement.executeQuery(str);
@@ -89,7 +91,7 @@ public class ProfessorDAO {
 					professor.setListaDiaSemana(new DiaSemana(
 							Dia.getDia(result.getInt("idDia")).getNome(),
 							Dia.getDia(result.getInt("idDia")),
-							Horario.getHorario(result.getInt("ïdAula"))));
+							Horario.getHorario(result.getInt("idAula"))));
 				}
 				
 				listaProfessores.add(professor);
@@ -105,17 +107,19 @@ public class ProfessorDAO {
 	public void editar(Professor professor){
 		try {
 			String sql = "update professor set nome = ?, "
-					+ "matricula = ?, cargaHorariaContratada = ?"
+					+ "matricula = ?, cargaContratada = ?, formacao = ?"
 					+ "where idProfessor = ?";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, professor.getIdProfessor());
 			pstmt.setString(2, professor.getNome());
 			pstmt.setString(3, professor.getMatricula());
-			pstmt.setDouble(4, professor.getCargaHorariaContratada());
+			pstmt.setString(4, professor.getFormacao());
+			pstmt.setDouble(5, professor.getCargaHorariaContratada());
+			
 
 			pstmt.execute();
 			
-			String delteSql = "delete * from horario where idProfessor = ? ";
+			String delteSql = "delete from horario where idProfessor = ? ";
 			PreparedStatement dleteStat = con.prepareStatement( delteSql);
 			dleteStat.setInt(1, professor.getIdProfessor());
 
@@ -141,11 +145,18 @@ public class ProfessorDAO {
 
 	public void excluir(int id){
 		try {
-			String sql = "delete from professor where id = ?";
+			String delteSql = "delete from horario where idProfessor = ? ";
+			PreparedStatement dleteStat = con.prepareStatement( delteSql);
+			dleteStat.setInt(1, id);
+			
+			dleteStat.execute();
+			
+			String sql = "delete from professor where idProfessor = ?";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, id);
 
 			pstmt.execute();
+
 		} catch (SQLException e){
 			e.printStackTrace();
 		}

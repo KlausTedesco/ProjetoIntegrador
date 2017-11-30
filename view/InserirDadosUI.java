@@ -9,10 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import controller.ProfessorController;
 import controller.UnidadeCurricularController;
+import model.CargaHorariaENUM;
 import model.DistribuicaoAutomatica;
-import model.ItemVenda;
-import model.ItemVendaTableModel;
-import model.Produto;
+import model.DistribuicaoAutomaticaTableModel;
 import model.Professor;
 import model.UnidadeCurricular;
 import javax.swing.JLabel;
@@ -71,10 +70,22 @@ public class InserirDadosUI extends JInternalFrame {
 		JButton btnExecutar = new JButton("Executar Distribui\u00E7\u00E3o");
 		btnExecutar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				
+				//enviar lista para camada controller>>
+				
 			}
 		});
 		
 		JButton btnExcluirAssociao = new JButton("Excluir Associa\u00E7\u00E3o");
+		btnExcluirAssociao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int linhaSelecionada = jtAssociacoes.getSelectedRow();
+				ListaProfessoresUnidades.remove(linhaSelecionada);
+				DistribuicaoAutomaticaTableModel modelDistribuicaoAutomatica = new DistribuicaoAutomaticaTableModel(ListaProfessoresUnidades);
+				jtAssociacoes.setModel(modelDistribuicaoAutomatica);
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -102,7 +113,6 @@ public class InserirDadosUI extends JInternalFrame {
 						.addComponent(btnExcluirAssociao))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
-		
 		JScrollPane jspAssociacoes = new JScrollPane();
 		GroupLayout gl_panelConsultarAssociacoes = new GroupLayout(panelConsultarAssociacoes);
 		gl_panelConsultarAssociacoes.setHorizontalGroup(
@@ -116,7 +126,6 @@ public class InserirDadosUI extends JInternalFrame {
 			gl_panelConsultarAssociacoes.createParallelGroup(Alignment.LEADING)
 				.addComponent(jspAssociacoes, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
 		);
-		
 		jtAssociacoes = new JTable();
 		jspAssociacoes.setViewportView(jtAssociacoes);
 		panelConsultarAssociacoes.setLayout(gl_panelConsultarAssociacoes);
@@ -133,7 +142,7 @@ public class InserirDadosUI extends JInternalFrame {
 		JLabel lblCargaHoraria = new JLabel("Carga Horaria:");
 		
 		jcbCargaHoraria = new JComboBox();
-		jcbCargaHoraria.setModel(new DefaultComboBoxModel(new Integer[] {35, 70, 140, 280}));
+		jcbCargaHoraria.setModel(new DefaultComboBoxModel(CargaHorariaENUM.values()));
 		
 		JLabel lblUnidadeCurricular = new JLabel("Unidade Curricular:");
 		
@@ -143,7 +152,6 @@ public class InserirDadosUI extends JInternalFrame {
 		}
 		jcbUnidadeCurricular = new JComboBox<>();
 		jcbUnidadeCurricular.setModel(modelUnidadeCurricular);
-			
 		
 		JComboBox jcbUnidadeCurricular = new JComboBox();
 		
@@ -151,14 +159,18 @@ public class InserirDadosUI extends JInternalFrame {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Lista "ListaProfessoresUnidades" onde passara Identificação;
-				jcbUnidadeCurricular.setSelectedItem(xx);
-				jcbProfessor.setSelectedItem(xx);
+				UnidadeCurricular unidadeCurricular = (UnidadeCurricular)jcbUnidadeCurricular.getSelectedItem();
+				Professor professor = (Professor)jcbProfessor.getSelectedItem();
+				CargaHorariaENUM cargaHoraria = (CargaHorariaENUM)jcbCargaHoraria.getSelectedItem();
 				
+				DistribuicaoAutomatica distribuicaoAutomatica = new DistribuicaoAutomatica();
+				distribuicaoAutomatica.setUnidadeCurricular(unidadeCurricular);
+				distribuicaoAutomatica.setProfessor(professor);
+				distribuicaoAutomatica.setCargaHoraria(cargaHoraria);
 				
-				ListaProfessoresUnidades.add(Identificação);
+				ListaProfessoresUnidades.add(distribuicaoAutomatica);
 				
-				DistribuicaoAutomaticaTableModel modelDistribuicaoAutomatica = new DistribuicaoAutomaticaTableModel(Identificação);
+				DistribuicaoAutomaticaTableModel modelDistribuicaoAutomatica = new DistribuicaoAutomaticaTableModel(ListaProfessoresUnidades);
 				jtAssociacoes.setModel(modelDistribuicaoAutomatica);
 				
 			}

@@ -1,9 +1,14 @@
 package view;
 
 import java.awt.EventQueue;
+import java.awt.Font;
+
+
+
 
 import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
+import javax.swing.JOptionPane;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
@@ -13,6 +18,18 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+
+
+
+import controller.ProfessorController;
+import controller.SalaController;
+import dao.ProfessorDAO;
+import dao.SalaDAO;
+import model.Professor;
+import model.ProfessorTableModel;
+import model.Sala;
+import model.SalaTableModel;
 
 public class ConsultaProfessorUI extends JInternalFrame {
 	private JTextField jtfPesquisaDeProfessor;
@@ -48,10 +65,43 @@ public class ConsultaProfessorUI extends JInternalFrame {
 		JScrollPane jspTabelaConsultaProfessor = new JScrollPane();
 		
 		JButton btnInserir = new JButton("Inserir");
+		btnInserir.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnInserir.addActionListener( arg -> {
+			InserirProfessorUI ui = new InserirProfessorUI();
+			getParent().add(ui,0);
+			ui.setVisible(true);
+		});
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnEditar.addActionListener( arg -> {
+			int linhaSelecionada = jtListaProfessor.getSelectedRow();
+			if(linhaSelecionada >= 0){
+				Professor prof = new ProfessorTableModel(ProfessorDAO.obterInstancia().listarTodos()).get(linhaSelecionada);
+				InserirProfessorUI ui = new InserirProfessorUI();
+				ui.setProfessorParaEdicao(prof);
+				getParent().add(ui,0);
+				ui.setVisible(true);
+			}
+			
+		});
 		
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnExcluir.addActionListener( arg ->{
+			try {
+				int linhaSelecionada = jtListaProfessor.getSelectedRow();
+					if(linhaSelecionada >= 0){
+					Professor prof = new ProfessorTableModel(ProfessorDAO.obterInstancia().listaProfessores).get(linhaSelecionada);
+					new ProfessorController().remover(prof);
+					JOptionPane.showMessageDialog(null, "Professor excluída com sucesso", "Exclusão de Professor",JOptionPane.WARNING_MESSAGE);
+				}else{
+					JOptionPane.showMessageDialog(null, "Selecione um Professor");
+				}
+			}catch(Exception e){
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
+		});
 		
 		JButton btnAtualizar = new JButton("Atualizar");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
@@ -90,28 +140,9 @@ public class ConsultaProfessorUI extends JInternalFrame {
 		);
 		
 		jtListaProfessor = new JTable();
-		jtListaProfessor.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"Matricula", "Nome", "Carga horaria"
-			}
-		));
+		ProfessorTableModel tableModel = new ProfessorTableModel(new ProfessorController().listarTodos());
+		
+		jtListaProfessor.setModel(tableModel);
 		jtListaProfessor.getColumnModel().getColumn(1).setPreferredWidth(207);
 		jtListaProfessor.getColumnModel().getColumn(2).setPreferredWidth(103);
 		jspTabelaConsultaProfessor.setViewportView(jtListaProfessor);

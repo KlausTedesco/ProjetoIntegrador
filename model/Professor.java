@@ -74,9 +74,9 @@ public class Professor {
 	public void setListaDiaSemana(List<DiaSemana> listaDiaSemana) {
 		ListaDiaSemana = listaDiaSemana;
 	}
-	
+
 	public void setListaDiaSemana(DiaSemana diaSemana) {
-		if(ListaDiaSemana == null) new ArrayList<DiaSemana>();
+		if (ListaDiaSemana == null) ListaDiaSemana = new ArrayList<DiaSemana>();
 		ListaDiaSemana.add(diaSemana);
 	}
 
