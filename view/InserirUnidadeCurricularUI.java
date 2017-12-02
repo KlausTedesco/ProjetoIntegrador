@@ -12,6 +12,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import controller.UnidadeCurricularController;
+import model.CargaHorariaENUM;
 import model.UnidadeCurricular;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -68,7 +69,7 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 		lblCargaHoraria.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		jcbCargaHorariaCurso = new JComboBox();
-		jcbCargaHorariaCurso.setModel(new DefaultComboBoxModel(new Integer[] {35, 70, 140, 280}));
+		jcbCargaHorariaCurso.setModel(new DefaultComboBoxModel(CargaHorariaENUM.values()));
 		
 		JPanel jpDadosUnidCurricular = new JPanel();
 		jpDadosUnidCurricular.setBorder(new TitledBorder(null, "Dados da Unidade Curricular", TitledBorder.LEADING, TitledBorder.TOP, null, null));

@@ -3,8 +3,10 @@ package controller;
 import java.util.List;
 
 import dao.ProfessorDAO;
+import dao.SalaDAO;
 import exeptions.HorarioExeption;
 import model.Professor;
+import model.Sala;
 
 public class ProfessorController {
 
@@ -31,6 +33,10 @@ public class ProfessorController {
 		this.chekName(professor);
 		this.chekCargaHraria(professor);
 		this.chekHorarios(professor);
+	}
+	
+	public List<Professor> pesquisarProfessorPorNome(String codigo){
+		return ProfessorDAO.obterInstancia().pesquisarProfessor(codigo.trim());
 	}
 	
 	

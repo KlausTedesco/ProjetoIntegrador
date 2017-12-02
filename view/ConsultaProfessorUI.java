@@ -30,6 +30,9 @@ import model.Professor;
 import model.ProfessorTableModel;
 import model.Sala;
 import model.SalaTableModel;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.awt.event.ActionEvent;
 
 public class ConsultaProfessorUI extends JInternalFrame {
 	private JTextField jtfPesquisaDeProfessor;
@@ -104,6 +107,14 @@ public class ConsultaProfessorUI extends JInternalFrame {
 		});
 		
 		JButton btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				List<Professor> filtro = new ProfessorController().pesquisarProfessorPorNome(jtfPesquisaDeProfessor.getText());
+				
+				ProfessorTableModel modelProfessor = new ProfessorTableModel(filtro);
+				jtListaProfessor.setModel(modelProfessor);
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -151,6 +162,14 @@ public class ConsultaProfessorUI extends JInternalFrame {
 		jtfPesquisaDeProfessor.setColumns(10);
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<Professor> filtro = new ProfessorController().pesquisarProfessorPorNome(jtfPesquisaDeProfessor.getText());
+				
+				ProfessorTableModel modelProfessor = new ProfessorTableModel(filtro);
+				jtListaProfessor.setModel(modelProfessor);
+			}
+		});
 		GroupLayout gl_jpPesquisaProfessor = new GroupLayout(jpPesquisaProfessor);
 		gl_jpPesquisaProfessor.setHorizontalGroup(
 			gl_jpPesquisaProfessor.createParallelGroup(Alignment.LEADING)

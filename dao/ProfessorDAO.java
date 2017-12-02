@@ -12,6 +12,7 @@ import model.Dia;
 import model.DiaSemana;
 import model.Horario;
 import model.Professor;
+import model.Sala;
 import dao.ConnectionUtil;
 
 public class ProfessorDAO {
@@ -110,12 +111,11 @@ public class ProfessorDAO {
 					+ "matricula = ?, cargaContratada = ?, formacao = ?"
 					+ "where idProfessor = ?";
 			PreparedStatement pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, professor.getIdProfessor());
-			pstmt.setString(2, professor.getNome());
-			pstmt.setString(3, professor.getMatricula());
+			pstmt.setString(1, professor.getNome());
+			pstmt.setString(2, professor.getMatricula());
+			pstmt.setDouble(3, professor.getCargaHorariaContratada());
 			pstmt.setString(4, professor.getFormacao());
-			pstmt.setDouble(5, professor.getCargaHorariaContratada());
-			
+			pstmt.setInt(5, professor.getIdProfessor());
 
 			pstmt.execute();
 			
@@ -161,7 +161,26 @@ public class ProfessorDAO {
 			e.printStackTrace();
 		}
 	}
+	public List<Professor> pesquisarProfessor(String codigo){
+		try{
+			String sql = "SELECT * FROM professor WHERE nome LIKE ?";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + codigo + "%");
+			ResultSet rs = pstmt.executeQuery();
+			listaProfessores = new ArrayList<>();
+			while(rs.next()){
+				Professor professor = new Professor();
+				professor.setNome(rs.getString("nome"));
+				professor.setMatricula(rs.getString("matricula"));
+				professor.setCargaHorariaContratada(rs.getDouble("cargaContratada"));
 
+				listaProfessores.add(professor);
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return listaProfessores;
+	}
 	public void printAll(Professor professor) {
 		
 		System.out.println(professor.getIdProfessor());
