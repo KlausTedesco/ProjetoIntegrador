@@ -8,7 +8,7 @@ public class Professor {
 	private int idProfessor;
 	private String nome;
 	private String matricula;
-	private Double cargaHorariaContratada;
+	private Integer cargaHorariaContratada;
 	private String formacao;
 	private List<DiaSemana> ListaDiaSemana;
 	private List<UnidadeCurricular> unidadeCurriculares;
@@ -46,11 +46,11 @@ public class Professor {
 		this.matricula = matricula;
 	}
 
-	public Double getCargaHorariaContratada() {
+	public Integer getCargaHorariaContratada() {
 		return cargaHorariaContratada;
 	}
 
-	public void setCargaHorariaContratada(Double cargaHorariaContratada) {
+	public void setCargaHorariaContratada(Integer cargaHorariaContratada) {
 		this.cargaHorariaContratada = cargaHorariaContratada;
 	}
 

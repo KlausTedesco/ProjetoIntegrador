@@ -43,7 +43,7 @@ public class DistribuicaoAutomaticaTableModel extends AbstractTableModel{
 					return distribuicaoAutomatica.getUnidadeCurricular();
 			else 
 				if (column == COL_CARGA_HORARIA) 
-					return distribuicaoAutomatica.getCargaHoraria();
+					return distribuicaoAutomatica.getProfessor().getCargaHorariaContratada();
 		return "";
 	}
 
@@ -56,7 +56,7 @@ public class DistribuicaoAutomaticaTableModel extends AbstractTableModel{
 				distribuicaoAutomatica.getUnidadeCurricular().setCodigoUnidade(aValue.toString());
 			else 
 				if (columnIndex == COL_CARGA_HORARIA) 
-					distribuicaoAutomatica.getCargaHoraria().getCargaHoraria();
+					distribuicaoAutomatica.getProfessor().getCargaHorariaContratada();
 	}
 
 	public Class<?> getColumnClass(int columnIndex) {

@@ -56,7 +56,7 @@ public class ProfessorTableModel extends AbstractTableModel {
 				professor.setNome(aValue.toString());
 			else 
 				if (columnIndex == COL_CARGA_HORARIA) 
-					professor.setCargaHorariaContratada(Double.parseDouble(aValue.toString()));
+					professor.setCargaHorariaContratada(Integer.parseInt(aValue.toString()));
 	}
 
 	public Class<?> getColumnClass(int columnIndex) {

@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
@@ -12,7 +13,6 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import controller.UnidadeCurricularController;
-import model.CargaHorariaENUM;
 import model.UnidadeCurricular;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -34,7 +34,7 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 	private JComboBox jcbFaseSemestre;
 	private JComboBox jcbCargaHorariaCurso;
 	private int posicaoParaEdicao;
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -69,7 +69,7 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 		lblCargaHoraria.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		jcbCargaHorariaCurso = new JComboBox();
-		jcbCargaHorariaCurso.setModel(new DefaultComboBoxModel(CargaHorariaENUM.values()));
+		jcbCargaHorariaCurso.setModel(new DefaultComboBoxModel(new Integer[] {35, 70, 140, 280}));
 		
 		JPanel jpDadosUnidCurricular = new JPanel();
 		jpDadosUnidCurricular.setBorder(new TitledBorder(null, "Dados da Unidade Curricular", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -78,7 +78,6 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
 					if (unidadeCurricularParaEdicao == null){
 						UnidadeCurricular unidadeCurricular = new UnidadeCurricular();
 						unidadeCurricular.setCodigoUnidade(jtfUnidadeCurricular.getText());
@@ -86,11 +85,23 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 						unidadeCurricular.setFaseCurso((Integer)jcbFaseSemestre.getSelectedItem());
 						unidadeCurricular.setEquipamentos(jtfEquipamentos.getText());
 						unidadeCurricular.setCargaHorariaMateria((Integer)jcbCargaHorariaCurso.getSelectedItem());
-						unidadeCurricular.setDataInicio(new SimpleDateFormat("dd/MM/yyyy").parse(jtfDataInicial.getText()));
-						unidadeCurricular.setDataFinal(new SimpleDateFormat("dd/MM/yyyy").parse(jtfDataFinal.getText()));
+						try{
+							unidadeCurricular.setDataInicio(new SimpleDateFormat("dd/MM/yyyy").parse(jtfDataInicial.getText()));
+						} catch (ParseException e) {
+							JOptionPane.showMessageDialog(null,"Data de inicio invalida");
+						}
+						try {
+							unidadeCurricular.setDataFinal(new SimpleDateFormat("dd/MM/yyyy").parse(jtfDataFinal.getText()));
+						} catch (ParseException e) {
+							JOptionPane.showMessageDialog(null,"Data de final invalida");
+						}
 						unidadeCurricular.setnAlunos(Integer.parseInt(jtfNumeroAlunos.getText()));
 					
-						new UnidadeCurricularController().salvar(unidadeCurricular);
+						try {
+							new UnidadeCurricularController().salvar(unidadeCurricular);
+						} catch (Exception e) {
+							JOptionPane.showMessageDialog(null,"Erro ao salvar");
+						}
 						JOptionPane.showMessageDialog(null, "Unidade curricular cadastrada com sucesso");
 					}else{
 						unidadeCurricularParaEdicao.setCodigoUnidade(jtfUnidadeCurricular.getText());
@@ -98,11 +109,23 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 						unidadeCurricularParaEdicao.setFaseCurso((Integer)jcbFaseSemestre.getSelectedItem());
 						unidadeCurricularParaEdicao.setEquipamentos(jtfEquipamentos.getText());
 						unidadeCurricularParaEdicao.setCargaHorariaMateria((Integer)jcbCargaHorariaCurso.getSelectedItem());
-						unidadeCurricularParaEdicao.setDataInicio(new SimpleDateFormat("dd/MM/yyyy").parse(jtfDataInicial.getText()));
-						unidadeCurricularParaEdicao.setDataFinal(new SimpleDateFormat("dd/MM/yyyy").parse(jtfDataFinal.getText()));
+						try {
+							unidadeCurricularParaEdicao.setDataInicio(new SimpleDateFormat("dd/MM/yyyy").parse(jtfDataInicial.getText()));
+						} catch (ParseException e) {
+							JOptionPane.showMessageDialog(null,"Data de inicio invalida");
+						}
+						try {
+							unidadeCurricularParaEdicao.setDataFinal(new SimpleDateFormat("dd/MM/yyyy").parse(jtfDataFinal.getText()));
+						} catch (ParseException e) {
+							JOptionPane.showMessageDialog(null,"Data de final invalida");
+						}
 						unidadeCurricularParaEdicao.setnAlunos(Integer.parseInt(jtfNumeroAlunos.getText()));
 												
-						new UnidadeCurricularController().editar(unidadeCurricularParaEdicao);
+						try {
+							new UnidadeCurricularController().editar(unidadeCurricularParaEdicao);
+						} catch (Exception e) {
+							JOptionPane.showMessageDialog(null,"Erro ao editar");
+						}
 						JOptionPane.showMessageDialog(null, "Unidade curricular editada com sucesso");
 					}
 					jtfUnidadeCurricular.setText("");
@@ -113,9 +136,7 @@ public class InserirUnidadeCurricularUI extends JInternalFrame {
 					jtfDataFinal.setText("");
 					jtfNumeroAlunos.setText("");
 					jtfEquipamentos.setText("");
-				} catch (Exception e){
-					JOptionPane.showMessageDialog(null,"Os campos marcados com asteriscos (*) são obrigatórios");
-				}
+				
 				
 			}
 		});

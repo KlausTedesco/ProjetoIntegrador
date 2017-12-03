@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import controller.ProfessorController;
 import controller.UnidadeCurricularController;
-import model.CargaHorariaENUM;
 import model.DistribuicaoAutomatica;
 import model.DistribuicaoAutomaticaTableModel;
 import model.Professor;
@@ -25,6 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -35,7 +35,7 @@ public class InserirDadosUI extends JInternalFrame {
 	private UnidadeCurricularController unidadeCurricularControl = new UnidadeCurricularController();
 	private JComboBox <UnidadeCurricular> jcbUnidadeCurricular;
 	private JComboBox jcbCargaHoraria;
-	private List <DistribuicaoAutomatica> ListaProfessoresUnidades;
+	private List <DistribuicaoAutomatica> ListaProfessoresUnidades = new ArrayList<>();
 
 	/**
 	 * Launch the application.
@@ -142,7 +142,7 @@ public class InserirDadosUI extends JInternalFrame {
 		JLabel lblCargaHoraria = new JLabel("Carga Horaria:");
 		
 		jcbCargaHoraria = new JComboBox();
-		jcbCargaHoraria.setModel(new DefaultComboBoxModel(CargaHorariaENUM.values()));
+		jcbCargaHoraria.setModel(new DefaultComboBoxModel(new Integer[] {35, 70, 140, 280}));
 		
 		JLabel lblUnidadeCurricular = new JLabel("Unidade Curricular:");
 		
@@ -153,7 +153,6 @@ public class InserirDadosUI extends JInternalFrame {
 		jcbUnidadeCurricular = new JComboBox<>();
 		jcbUnidadeCurricular.setModel(modelUnidadeCurricular);
 		
-		JComboBox jcbUnidadeCurricular = new JComboBox();
 		
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
@@ -161,12 +160,12 @@ public class InserirDadosUI extends JInternalFrame {
 				
 				UnidadeCurricular unidadeCurricular = (UnidadeCurricular)jcbUnidadeCurricular.getSelectedItem();
 				Professor professor = (Professor)jcbProfessor.getSelectedItem();
-				CargaHorariaENUM cargaHoraria = (CargaHorariaENUM)jcbCargaHoraria.getSelectedItem();
+				professor.setCargaHorariaContratada((Integer)jcbCargaHoraria.getSelectedItem());
 				
 				DistribuicaoAutomatica distribuicaoAutomatica = new DistribuicaoAutomatica();
 				distribuicaoAutomatica.setUnidadeCurricular(unidadeCurricular);
 				distribuicaoAutomatica.setProfessor(professor);
-				distribuicaoAutomatica.setCargaHoraria(cargaHoraria);
+				distribuicaoAutomatica.getProfessor().setCargaHorariaContratada((Integer)jcbCargaHoraria.getSelectedItem());
 				
 				ListaProfessoresUnidades.add(distribuicaoAutomatica);
 				

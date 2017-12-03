@@ -11,7 +11,7 @@ public class UnidadeCurricular {
 	private int nAlunos;
 	private String equipamentos;
 	private Professor professor;
-	private int cargaHorariaMateria;
+	private Integer cargaHorariaMateria;
 	private Date dataInicio;
 	private Date dataFinal;
 	
@@ -81,11 +81,11 @@ public class UnidadeCurricular {
 		this.professor = professor;
 	}
 
-	public int getCargaHorariaMateria() {
+	public Integer getCargaHorariaMateria() {
 		return cargaHorariaMateria;
 	}
 
-	public void setCargaHorariaMateria(int cargaHorariaMateria) {
+	public void setCargaHorariaMateria(Integer cargaHorariaMateria) {
 		this.cargaHorariaMateria = cargaHorariaMateria;
 	}
 

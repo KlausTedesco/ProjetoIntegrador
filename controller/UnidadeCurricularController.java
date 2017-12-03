@@ -11,9 +11,9 @@ public class UnidadeCurricularController {
 				unidadeCurricular.getCodigoUnidade().length() < 2){
 			throw new Exception("Unidade inválida");
 		}
-		if(unidadeCurricular.getCargaHorariaMateria() <= 0){
-			throw new Exception("Carga horaria inválida");
-		}
+		//if(unidadeCurricular.getCargaHorariaMateria() <= 0){
+			//throw new Exception("Carga horaria inválida");
+	//	}
 		if(unidadeCurricular.getNomeCurso().trim().equals("") || 
 				unidadeCurricular.getNomeCurso().length() < 2){
 			throw new Exception("Curso inválido");
@@ -26,9 +26,9 @@ public class UnidadeCurricularController {
 				unidadeCurricular.getCodigoUnidade().length() < 2){
 			throw new Exception("Unidade inválida");
 		}
-		if(unidadeCurricular.getCargaHorariaMateria() <= 0){
-			throw new Exception("Carga horaria inválida");
-		}
+		//if(unidadeCurricular.getCargaHorariaMateria() <= 0){
+			//throw new Exception("Carga horaria inválida");
+		//}
 		if(unidadeCurricular.getNomeCurso().trim().equals("") || 
 				unidadeCurricular.getNomeCurso().length() < 2){
 			throw new Exception("Curso inválido");

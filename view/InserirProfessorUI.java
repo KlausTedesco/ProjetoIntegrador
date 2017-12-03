@@ -27,8 +27,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.TitledBorder;
-
-import model.CargaHorariaENUM;
 import model.Dia;
 import model.DiaSemana;
 import model.Horario;
@@ -82,7 +80,7 @@ public class InserirProfessorUI extends JInternalFrame {
 						.getSelectedItem());
 			}
 		});
-		jcbCargaHorariaMensal.setModel(new DefaultComboBoxModel(CargaHorariaENUM.values()));
+		jcbCargaHorariaMensal.setModel(new DefaultComboBoxModel(new Integer[] {35, 70, 140, 280}));
 
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
@@ -92,8 +90,8 @@ public class InserirProfessorUI extends JInternalFrame {
 						Professor professor = new Professor();
 						professor.setNome(jtfNome.getText());
 						professor.setMatricula(jtfMatricula.getText());
-						professor.setCargaHorariaContratada(Double
-								.parseDouble(jcbCargaHorariaMensal
+						professor.setCargaHorariaContratada(Integer
+								.parseInt(jcbCargaHorariaMensal
 										.getSelectedItem().toString()));
 						professor.setFormacao(jtfFormacao.getText());
 	
@@ -108,8 +106,8 @@ public class InserirProfessorUI extends JInternalFrame {
 	
 						professorParaEdicao.setNome(jtfNome.getText());
 						professorParaEdicao.setMatricula(jtfMatricula.getText());
-						professorParaEdicao.setCargaHorariaContratada(Double
-								.parseDouble(jcbCargaHorariaMensal
+						professorParaEdicao.setCargaHorariaContratada(Integer
+								.parseInt(jcbCargaHorariaMensal
 										.getSelectedItem().toString()));
 						professorParaEdicao.setFormacao(jtfFormacao.getText());
 						professorParaEdicao

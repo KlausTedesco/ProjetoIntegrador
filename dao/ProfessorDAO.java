@@ -81,7 +81,7 @@ public class ProfessorDAO {
 				professor.setIdProfessor(rs.getInt("idProfessor"));
 				professor.setNome(rs.getString("nome"));
 				professor.setMatricula(rs.getString("matricula"));
-				professor.setCargaHorariaContratada(rs.getDouble("cargaContratada"));
+				professor.setCargaHorariaContratada(rs.getInt("cargaContratada"));
 				professor.setFormacao(rs.getString("formacao"));
 				
 				Statement statement = con.createStatement();
@@ -172,7 +172,7 @@ public class ProfessorDAO {
 				Professor professor = new Professor();
 				professor.setNome(rs.getString("nome"));
 				professor.setMatricula(rs.getString("matricula"));
-				professor.setCargaHorariaContratada(rs.getDouble("cargaContratada"));
+				professor.setCargaHorariaContratada(rs.getInt("cargaContratada"));
 
 				listaProfessores.add(professor);
 			}

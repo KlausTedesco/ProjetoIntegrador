@@ -36,7 +36,7 @@ public class UnidadeCurricularDAO {
 			pstmt.setInt(3, unidadeCurricular.getFaseCurso());
 			pstmt.setInt(4, unidadeCurricular.getnAlunos());
 			pstmt.setString(5, unidadeCurricular.getEquipamentos());
-			pstmt.setDouble(6, unidadeCurricular.getCargaHorariaMateria());
+			pstmt.setInt(6, unidadeCurricular.getCargaHorariaMateria());
 			pstmt.setDate(7, new Date(unidadeCurricular.getDataInicio().getTime()));
 			pstmt.setDate(8, new Date(unidadeCurricular.getDataFinal().getTime()));
 
@@ -86,7 +86,7 @@ public class UnidadeCurricularDAO {
 			pstmt.setInt(3, unidadeCurricular.getFaseCurso());
 			pstmt.setInt(4, unidadeCurricular.getnAlunos());
 			pstmt.setString(5, unidadeCurricular.getEquipamentos());
-			pstmt.setDouble(6, unidadeCurricular.getCargaHorariaMateria());
+			pstmt.setInt(6, unidadeCurricular.getCargaHorariaMateria());
 			pstmt.setDate(7, new Date(unidadeCurricular.getDataInicio().getTime()));
 			pstmt.setDate(8, new Date(unidadeCurricular.getDataFinal().getTime()));
 			pstmt.setInt(9, unidadeCurricular.getIdUnidadeCurricular());
