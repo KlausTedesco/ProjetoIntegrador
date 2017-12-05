@@ -35,7 +35,7 @@ public class InserirDadosUI extends JInternalFrame {
 	private UnidadeCurricularController unidadeCurricularControl = new UnidadeCurricularController();
 	private JComboBox <UnidadeCurricular> jcbUnidadeCurricular;
 	private JComboBox jcbCargaHoraria;
-	private List <DistribuicaoAutomatica> ListaProfessoresUnidades = new ArrayList<>();
+	private List <DistribuicaoAutomatica> listaProfessoresUnidades = new ArrayList<>();
 
 	/**
 	 * Launch the application.
@@ -81,8 +81,8 @@ public class InserirDadosUI extends JInternalFrame {
 		btnExcluirAssociao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int linhaSelecionada = jtAssociacoes.getSelectedRow();
-				ListaProfessoresUnidades.remove(linhaSelecionada);
-				DistribuicaoAutomaticaTableModel modelDistribuicaoAutomatica = new DistribuicaoAutomaticaTableModel(ListaProfessoresUnidades);
+				listaProfessoresUnidades.remove(linhaSelecionada);
+				DistribuicaoAutomaticaTableModel modelDistribuicaoAutomatica = new DistribuicaoAutomaticaTableModel(listaProfessoresUnidades);
 				jtAssociacoes.setModel(modelDistribuicaoAutomatica);
 			}
 		});
@@ -167,9 +167,9 @@ public class InserirDadosUI extends JInternalFrame {
 				distribuicaoAutomatica.setProfessor(professor);
 				distribuicaoAutomatica.getProfessor().setCargaHorariaContratada((Integer)jcbCargaHoraria.getSelectedItem());
 				
-				ListaProfessoresUnidades.add(distribuicaoAutomatica);
+				listaProfessoresUnidades.add(distribuicaoAutomatica);
 				
-				DistribuicaoAutomaticaTableModel modelDistribuicaoAutomatica = new DistribuicaoAutomaticaTableModel(ListaProfessoresUnidades);
+				DistribuicaoAutomaticaTableModel modelDistribuicaoAutomatica = new DistribuicaoAutomaticaTableModel(listaProfessoresUnidades);
 				jtAssociacoes.setModel(modelDistribuicaoAutomatica);
 				
 			}
