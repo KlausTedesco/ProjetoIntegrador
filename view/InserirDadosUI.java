@@ -7,8 +7,11 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+
+import controller.DistribuicaoAutomaticaController;
 import controller.ProfessorController;
 import controller.UnidadeCurricularController;
+import dao.DistribuicaoAutomaticaDAO;
 import model.DistribuicaoAutomatica;
 import model.DistribuicaoAutomaticaTableModel;
 import model.Professor;
@@ -71,8 +74,13 @@ public class InserirDadosUI extends JInternalFrame {
 		btnExecutar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				DistribuicaoAutomaticaController dac = new DistribuicaoAutomaticaController();
+				try {
+					dac.executarDistribuicao();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 				
-				//enviar lista para camada controller>>
 				
 			}
 		});
@@ -171,6 +179,8 @@ public class InserirDadosUI extends JInternalFrame {
 				
 				DistribuicaoAutomaticaTableModel modelDistribuicaoAutomatica = new DistribuicaoAutomaticaTableModel(listaProfessoresUnidades);
 				jtAssociacoes.setModel(modelDistribuicaoAutomatica);
+			
+				
 				
 			}
 		});

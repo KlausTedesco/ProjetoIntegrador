@@ -23,17 +23,17 @@ public class DistribuicaoAutomaticaDAO {
 		return instancia;
 		
 	}
-	public void salvar(ArrayList <DistribuicaoAutomatica> listaDistribuicaoAutomatica){
+	public void salvar(List<DistribuicaoAutomatica> listaDistribuicaoAutomatica2){
 		try {
-			for(int i=0; i<listaDistribuicaoAutomatica.size(); i++){
+			for(int i=0; i<listaDistribuicaoAutomatica2.size(); i++){
 				String sql = "INSERT INTO distribuicaoAutomatica "
 				+ "(idProfessor, idSala, idUnidadeCurricular) "
 				+ "VALUES (?, ?, ?)";
 				PreparedStatement pstmt = con.prepareStatement(sql);
-				//pstmt.setInt(1, distribuicaoAutomatica.getProfessor().getIdProfessor());
-				//pstmt.setInt(2, distribuicaoAutomatica.getSala().getIdSala());
-				//pstmt.setInt(3, distribuicaoAutomatica.getUnidadeCurricular().getIdUnidadeCurricular());
-				//pstmt.execute();
+				pstmt.setInt(1, listaDistribuicaoAutomatica2.get(i).getProfessor().getIdProfessor());
+				pstmt.setInt(2, listaDistribuicaoAutomatica2.get(i).getSala().getIdSala());
+				pstmt.setInt(3, listaDistribuicaoAutomatica2.get(i).getUnidadeCurricular().getIdUnidadeCurricular());
+				pstmt.execute();
 			}
 		} catch (SQLException e){
 			e.printStackTrace();
